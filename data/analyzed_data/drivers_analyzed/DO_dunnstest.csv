@@ -1,0 +1,4 @@
+.y.,group1,group2,n1,n2,statistic,p,p.adj,p.adj.signif
+DO,Brewers Bay,Krum Bay,30,24,-5.291639338588959,1.2122477719984126e-7,3.636743315995238e-7,****
+DO,Brewers Bay,Yacht Haven Grand,30,68,-5.930948493247964,3.011896924017446e-9,9.035690772052338e-9,****
+DO,Krum Bay,Yacht Haven Grand,24,68,0.6285613188171312,0.529636290725617,1,ns
