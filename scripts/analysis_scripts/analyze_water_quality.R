@@ -306,7 +306,7 @@ turbidity_dunn <- turbidity %>%
 # BRB x YHG p.adj = 2.08e-11; KRM x YHG p.adj = 9.90e-07
 
 # Export Dunn's test results
-write_csv(turbidity_dunn, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_dunnstest.csv")
+write_csv(turbidity_dunn, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_dunnstest_outlier.csv")
 
 ##### DUNN'S POST HOC SIGNIFICANCE LETTERS #####
 
@@ -330,7 +330,7 @@ turbidity_sigletters <- turbidity %>%
   left_join(turbidity_dfletters, by = "MonitoringLocationName")
 
 # Export full turbidity dataframe WITH sig. letters as CSV for plotting
-write_csv(turbidity_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/turbidity_sigletters.csv")
+write_csv(turbidity_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/turbidity_sigletters_outlier.csv")
 
 ################################################################################
 # TOTAL SUSPENDED SOLIDS (TSS) STATISTICS

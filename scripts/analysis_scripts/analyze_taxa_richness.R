@@ -1,5 +1,5 @@
 ################################################################################
-# This script calculates the Taxon Richness for all tiles analyzed at each location during each sampling event, and uses a Generalized Additive Model (GAM) to determine statistically significant differences between locations and sampling events (time).
+# This script calculates the Taxon Richness for all tiles analyzed at each location during each sampling event, and uses a Generalized Additive Model (GAM) to determine statistically significant differences between locations and over time at each location.
 # This is script number 2B for the biofouling taxon ID data (1. tidy_taxa.R, 2B. analyze_taxa_richness.R).
 
 # Created by Abigail Lewine on October 28, 2025.
@@ -49,6 +49,7 @@ GAM <- mgcv::gam(
 )
 summary(GAM)
 
+#-------------------------------------------------------------------
 # Family: gaussian 
 # Link function: identity 
 # 
@@ -74,8 +75,7 @@ summary(GAM)
 # 
 # R-sq.(adj) =   0.51   Deviance explained = 67.5%
 # -REML =  31.82  Scale est. = 4.4136    n = 18
-
-# GAM INTERPRETAION ------------------------------------------------------------
+#-------------------------------------------------------------------
 
 # Difference among locations: BRB is the reference site (Estimate = 11.3333). KRM has slightly lower richness (-2.3333) than BRB (p 0.080 = not significant); YHG has very slightly greater richness (+0.6667) than BRB (p 0.593 = not significant).
 

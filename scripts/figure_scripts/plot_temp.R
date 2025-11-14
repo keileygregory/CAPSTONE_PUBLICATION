@@ -2,108 +2,147 @@
 # This script plots water temperature data collected hourly by temp loggers. It is the third script for the water temperature data (1. tidy_temp.R, 2. analyze_temp.R, 3. plot_temp.R).
 
 # Created by Keiley Gregory on September 23, 2025.
-# Last edited by Keiley Gregory on September 23, 2025.
+# Last edited by Keiley Gregory on November 14, 2025.
 ################################################################################
 
-library(tidyverse) # includes ggplot2
+library(tidyverse)
+library(mgcv)
+library(gratia)
+library(patchwork)  # for creating multipanel plots
 
 # Load tidy temp logger data
-temp_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed_data/significance_letters/temp_sigletters.csv")
-spec(temp_sigletters)
+temp_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/temp_sigletters.csv")
 
 ################################################################################
-
-# SET CUSTOM LABELS AND VARIABLES FOR PLOTTING
-
+# Visualize water temperature data
 ################################################################################
-
-# Set custom site labels
-custom_names <- c(
-  "BRB" = "Brewers Bay",
-  "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grand")
-
-# Apply recoding for site names
-temp_plotting <- temp_sigletters %>%
-  mutate(Location = recode(Location, !!!custom_names))
-
-# Set custom colors by site
-custom_colors <- c(
-  "Brewers Bay"       = "lightskyblue",
-  "Krum Bay"          = "lightseagreen",
-  "Yacht Haven Grand" = "blue"
-)
+# NOTE: Cannot do point shape by date because hourly data collection. Temp logger measures in 5°C increments, so did not include individual jittered points because looks weird
 
 # Get summary positions for letters (*the numbers in this df are the MAX values for plotting display purposes, NOT the mean)
-letter_positions <- temp_plotting %>%
+letter_positions <- temp_sigletters %>%
   group_by(Location) %>%
   summarise(Temp_C = max(Temp_C, na.rm = TRUE),
             sig_letter = first(sig_letter)) %>%
   ungroup()
 
-################################################################################
-
-# TEMP BOX PLOT 
-# NOTE: Cannot do point shape by date because hourly data collection. Temp logger measures in 5°C increments, so did not include individual jittered points because looks weird
-
-################################################################################
-
-# Visualize temp by site
-boxplot <- ggplot(temp_plotting, aes(x = Location, y = Temp_C, fill = Location)) +
-  geom_boxplot(
-    width = 0.6, alpha = 0.70,
-    outlier.size = 1.2, outlier.stroke = 0.2, outlier.shape = 21, outlier.color = "grey30", outlier.fill = "black") +
-  geom_text(data = letter_positions,
-            aes(x = Location, y = Temp_C + 0.5, label = sig_letter),
-            inherit.aes = FALSE, size = 3, fontface = "bold") +  
-  scale_fill_manual(values = custom_colors, guide = "none") +
+# Visualize water temp between locations
+boxplot <- ggplot(temp_sigletters, aes(x = Location, y = Temp_C, fill = Location)) + 
+  geom_boxplot(aes(fill = Location), alpha = 0.35, outlier.shape = NA, color = "black") + # add black box outline; alpha value here controls transparency of box fill colors
+  stat_boxplot(geom = "errorbar",  # **add extra layer that has ONLY whisker lines (so can make them ticker without effecting entire box border)
+               aes(ymin = ..ymin.., ymax = ..ymax..),   # use whisker endpoints
+               width = 0,   # no horizontal caps, just vertical line
+               linewidth = 0.6,  # thickness of whisker lines
+               color = "black") +
+  geom_point(aes(color = Location), alpha = 0.25, size = 2.5) +  # align points vertically
+  geom_text(data = letter_positions, aes(x = Location, y = Temp_C + 0.3, label = sig_letter), inherit.aes = FALSE, size = 4, fontface = "bold") +  # position sig letters on plot
+  scale_fill_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") +
+  scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") +
+  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grand")) +
   labs(
     title = "Distribution of Water Temperature (°C) Across Sampling Locations From January 23, 2025 Through \nApril 21, 2025",
+    y = "Water Temperature (°C)",
     x = "Sampling Location",
-    y = "Water Temperature (°C)",
-    caption = "Colored boxes represent water temperature (°C) distributions at each sampling location. Black points mark outliers. Letters (a, b, c) indicate statistically \nsignificant differences in water temperature between sampling locations.") +
-  theme_minimal(base_size = 10) +  
+    caption = "Colored boxes represent water temperature (°C) distributions at each sampling location. Letters (a, b, c) indicate statistically \nsignificant differences in water temperature between sampling locations."
+  ) +
+  theme_minimal() +
   theme(
-    axis.text.x   = element_text(vjust = 1.2, color = "black", face = "bold"),
     plot.title    = element_text(face = "bold", size = 11, hjust = 0),
     plot.caption  = element_text(size = 7,   hjust = 0, color = "grey30"),
-    axis.title.y  = element_text(size = 10,  color = "black"),
-    legend.position = "none")
+    axis.title.x  = element_text(size = 11,  color = "black"),
+    axis.title.y  = element_text(size = 11,  color = "black"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "gray90"),
+    legend.position = "none"
+  )
+boxplot
 
-print(boxplot)
-
-# Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 300)
-
-################################################################################
-
-# TEMP OVER TIME PLOT SCATTERPLOT WITH TRENDLINES, COLOR = LOCATION
-# NOTE: Temp logger measures in 5°C increments, so plot will display as such
+# Export diversity boxplot
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot.png", boxplot, width = 8, height = 8, dpi = 600)
 
 ################################################################################
+# Visualize GAM results for water temperature
+################################################################################
 
-# Visualize temp over time by site
-scatterplot <- ggplot(temp_plotting, aes(x = Datetime_local, y = Temp_C)) +
-  geom_point(aes(fill = Location), shape = 21, color = "black", size = 2, stroke = 0.2, alpha = 0.5) +  # semi-opaque points with outline
-  geom_smooth(aes(color = Location), method = "loess", se = FALSE, linewidth = 0.5) +  # colored trend lines
+# Import saved GAM model for SDI
+GAM <- readRDS("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/GAM_results/GAM_model_temp.rds")
+
+# Simple gratia diagnostic plot (faceted by smooth)
+draw(GAM, scales = "free")
+
+# Get smooth estimates for custom ggplot
+smooths <- smooth_estimates(GAM)
+
+# FIX TIME LABELS FOR PLOT---------------------------------------------
+# Recreate temp_gam (same calculation as in analyze_temp.R)
+temp_gam <- temp_sigletters %>%
+  mutate(
+  time_hours = as.numeric(Datetime_UTC - min(Datetime_UTC, na.rm = TRUE)) / 3600,
+  Location = as.factor(Location)
+ )
+
+# Make a new dataframe with all combinations of datetime + location
+newdat <- temp_gam %>%
+  dplyr::select(Datetime_UTC, time_hours, Location) %>%
+  arrange(Datetime_UTC)
+
+# Add fitted GAM values *and* SE for confidence bands
+pred <- predict(
+  GAM,
+  newdata = newdat,
+  type = "response",
+  se.fit = TRUE
+)
+
+newdat <- newdat %>%
+  mutate(
+    fitted = pred$fit,
+    se     = pred$se.fit,
+    ymin   = fitted - 2 * se,   # approx 95% CI
+    ymax   = fitted + 2 * se
+  )
+#-----------------------------------------------------------------------
+
+# Rename site abbreviations to full names in Location col in smooths dataframe for plotting
+newdat$Location <- recode(
+  newdat$Location,
+  "BRB" = "Brewers Bay",
+  "KRM" = "Krum Bay",
+  "YHG" = "Yacht Haven Grand"
+)
+
+# Detailed smooth plot
+GAM_smoothsplot <- ggplot(newdat, aes(
+  x = Datetime_UTC, 
+  y = fitted, 
+  color = Location
+)) +
+  geom_ribbon(
+    aes(ymin = ymin, ymax = ymax, fill = Location),
+    alpha = 0.25,
+    color = NA,
+    linewidth = 0
+  ) +
+  geom_line(
+    aes(color = Location),
+    size = 0.6,
+    lineend = "round"
+  ) +
+  facet_wrap(~ Location, ncol = 3, scales = "free_y") +
   labs(
-    title = "Water Temperature (°C) Over Time Across Sampling Locations From January 23, 2025 \nThrough April 21, 2025",
     x = "Date",
-    y = "Water Temperature (°C)",
-    fill = "Location",
-    color = "Location",
-    caption = "Points represent water temperature (°C) values colored by sampling location. Lines represent trendlines colored by sampling location.") +
-  theme_minimal(base_size = 10) +
-  scale_fill_manual(values = custom_colors) +
-  scale_color_manual(values = custom_colors) +
+    y = "Water Temperature (°C)"
+  ) +
+  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue" )) +
+  scale_fill_manual(values = c( "Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue" )) +
+  scale_x_datetime(date_labels = "%b %d", date_breaks = "4 weeks") +
+  theme_bw() +
   theme(
-    axis.text.x   = element_text(vjust = 1.2, color = "black"),
-    plot.title    = element_text(face = "bold", size = 11, hjust = 0),
-    plot.caption  = element_text(size = 7,   hjust = 0, color = "grey30"),
-    axis.title.y  = element_text(size = 10,  color = "black"),
-    legend.text   = element_text(face = "bold"))  
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10),
+    legend.position = "none"
+  )
+GAM_smoothsplot
 
-print(scatterplot)
-
-# Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_over_time_scatterplot.png", plot = scatterplot, width = 8, height = 6, dpi = 300)
+# Export detailed GAM smooths plot
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot.png", GAM_smoothsplot, width = 8, height = 5, dpi = 500)

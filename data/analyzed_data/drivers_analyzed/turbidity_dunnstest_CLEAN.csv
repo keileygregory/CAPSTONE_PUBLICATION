@@ -1,0 +1,4 @@
+.y.,group1,group2,n1,n2,statistic,p,p.adj,p.adj.signif
+Turbidity,Brewers Bay,Krum Bay,53,24,0.3337097448140005,0.7385985954337171,1,ns
+Turbidity,Brewers Bay,Yacht Haven Grand,53,68,7.1094360796107425,1.1651804885318642e-12,3.4955414655955925e-12,****
+Turbidity,Krum Bay,Yacht Haven Grand,24,68,5.140769226297436,2.7361595251999587e-7,8.208478575599876e-7,****

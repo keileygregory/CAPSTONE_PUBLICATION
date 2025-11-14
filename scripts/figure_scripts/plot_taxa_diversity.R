@@ -23,8 +23,8 @@ boxplot <- ggplot(shannon_diversity, aes(x = Location, y = Shannon_Diversity_Ind
   geom_boxplot(aes(fill = Location), alpha = 0.35, outlier.shape = NA, color = "black") + # add black box outline; alpha value here controls transparency of box fill colors
   geom_point(aes(color = Location, shape = factor(Sampling_date)),  # add unique point shapes by sampling date
              alpha = 1, size = 2.5) +  # align points vertically
-  scale_fill_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "cornflowerblue"), guide = "none") + # <guide = "none"> removes Location legend
-  scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "cornflowerblue"), guide = "none") + # <guide = "none"> removes Location legend
+  scale_fill_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") + # <guide = "none"> removes Location legend
+  scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") + # <guide = "none"> removes Location legend
   scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grand")) +
   labs(
     y = "Shannon Diversity Index", 
@@ -50,7 +50,7 @@ lineplot <- ggplot(shannon_diversity, aes(x = Sampling_date, y = Shannon_Diversi
 ) +
   geom_line(linewidth = 0.5) +
   geom_point(size = 3, alpha = 1) +
-  scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "cornflowerblue"),
+  scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"),
                      labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grand")) +
   theme_minimal() +
   labs(
@@ -114,8 +114,8 @@ GAM_smoothsplot <- ggplot(smooths, aes(
     y = "Shannon Diversity Index"
   ) + 
   scale_x_continuous(breaks = c(15, 30, 45, 60, 75, 90)) +
-  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "cornflowerblue")) + # define line colors
-  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "cornflowerblue")) +  # define ribbon colors (match line colors)
+  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) + # define line colors
+  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) +  # define ribbon colors (match line colors)
   theme_bw() + 
   theme(
     strip.text = element_text(size = 12, face = "bold"),

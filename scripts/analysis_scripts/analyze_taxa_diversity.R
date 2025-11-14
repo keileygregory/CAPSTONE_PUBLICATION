@@ -1,5 +1,5 @@
 ################################################################################
-# This script calculates the Shannon Diversity Index for all tiles analyzed at each location during each sampling event, and uses a Generalized Additive Model (GAM) to determine statistically significant differences between locations and sampling events (time).
+# This script calculates the Shannon Diversity Index for all tiles analyzed at each location during each sampling event, and uses a Generalized Additive Model (GAM) to determine statistically significant differences between locations and over time at each location.
 # This is script number 2A for the biofouling taxon ID data (1. tidy_taxa.R, 2A. analyze_taxa_diversity.R).
 
 # Created by Abigail Lewine on October 28, 2025.
@@ -59,6 +59,7 @@ GAM <- mgcv::gam(
 )
 summary(GAM)
 
+#-------------------------------------------------------------------
 # Family: gaussian 
 # Link function: identity 
 # 
@@ -82,8 +83,7 @@ summary(GAM)
 # 
 # R-sq.(adj) =  0.485   Deviance explained = 73.2%
 # -REML = 8.0036  Scale est. = 0.058393  n = 18
-
-# GAM INTERPRETAION ------------------------------------------------------------
+#-------------------------------------------------------------------
 
 # Difference among locations: BRB is the reference site (Estimate = 1.71573). KRM has slightly lower SDI (-0.27346) than BRB (p 0.0822 = not significant); YHG has very slightly greater SDI (+0.05614) than BRB (p 0.6969 = not significant).
 
