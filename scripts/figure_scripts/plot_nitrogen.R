@@ -64,4 +64,4 @@ boxplot <- ggplot(nitrogen_sigletters, aes(x = MonitoringLocationName, y = Nitro
 print(boxplot)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/nitrogen_boxplot.png", plot = boxplot, width = 8, height = 8, dpi = 600)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/nitrogen_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)

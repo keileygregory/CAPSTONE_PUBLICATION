@@ -119,7 +119,7 @@ library(emmeans)
 library(multcomp)
 library(multcompView)
 
-# Determine and assign significance letters (or symbols in this case for now)
+# Post hoc test to determine specific differences btwn sites and assign significance letters (or symbols in this case for now)
 emm <- emmeans(GAM, "Location")
 
 letters_df <- multcomp::cld(

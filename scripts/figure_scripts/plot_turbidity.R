@@ -64,7 +64,7 @@ boxplot_outlier <- ggplot(turbidity_sigletters_outlier, aes(x = MonitoringLocati
 print(boxplot_outlier)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_outlier.png", plot = boxplot_outlier, width = 8, height = 8, dpi = 600)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_outlier.png", plot = boxplot_outlier, width = 8, height = 6, dpi = 600)
 
 ################################################################################
 # REMOVE OBVIOUS OUTLIER IN BREWERS BAY
@@ -102,6 +102,9 @@ turbidity_shapiro_CLEAN <- turbidity_sigletters_CLEAN %>%
 
 turbidity_kruskal_CLEAN <- kruskal_test(Turbidity ~ MonitoringLocationName, data = turbidity_sigletters_CLEAN)
 # p = 1.54e-13 (was 7.84e-13) = still significant
+
+# n     statistic   df  p
+# 145   59.0051     2   1.54e-13
 
 turbidity_dunn_CLEAN <- turbidity_sigletters_CLEAN %>%
   dunn_test(Turbidity ~ MonitoringLocationName, p.adjust.method = "bonferroni")
@@ -156,4 +159,4 @@ boxplot_CLEAN <- ggplot(turbidity_sigletters_CLEAN, aes(x = MonitoringLocationNa
 print(boxplot_CLEAN)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_CLEAN.png", plot = boxplot_CLEAN, width = 8, height = 8, dpi = 600)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_CLEAN.png", plot = boxplot_CLEAN, width = 8, height = 6, dpi = 600)

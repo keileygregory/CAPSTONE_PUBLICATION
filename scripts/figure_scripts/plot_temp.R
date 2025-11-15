@@ -57,7 +57,10 @@ boxplot <- ggplot(temp_sigletters, aes(x = Location, y = Temp_C, fill = Location
 boxplot
 
 # Export diversity boxplot
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot.png", boxplot, width = 8, height = 8, dpi = 600)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot.png", boxplot, width = 8, height = 6, dpi = 600)
+
+# Narrow format
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot_thin.png", boxplot, width = 8, height = 8, dpi = 600)
 
 ################################################################################
 # Visualize GAM results for water temperature
@@ -146,3 +149,6 @@ GAM_smoothsplot
 
 # Export detailed GAM smooths plot
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot.png", GAM_smoothsplot, width = 8, height = 5, dpi = 500)
+
+# Export wider version
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot.png", GAM_smoothsplot_wide, width = 10, height = 5, dpi = 500)

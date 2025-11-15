@@ -165,7 +165,9 @@ DO_shapiro <- DO %>%
 
 # Kruskal-Wallis test for differences between locations
 DO_kruskal <- kruskal_test(DO ~ MonitoringLocationName, data = DO)
-# p = 1.28e-09
+summary(DO_kruskal)
+# n   statistic   df  p    
+# 122 40.94827    2   1.28e-09
 
 # Dunn's post hoc test with Bonferroni correction
 DO_dunn <- DO %>%
@@ -231,7 +233,9 @@ pH_bartlett <- bartlett.test(pH ~ MonitoringLocationName, data = pH)
 # One-way ANOVA test for differences between locations
 pH_anova <- aov(pH ~ MonitoringLocationName, data = pH)
 summary(pH_anova)
-# p = 0.00197
+#                         Df  Sum Sq  Mean Sq   F value   Pr(>F)   
+# MonitoringLocationName  2   0.1205  0.06024   6.568     0.00197 **
+# Residuals               119 1.0915  0.00917                   
 
 # Tukey’s HSD post hoc test
 pH_tukey <- TukeyHSD(pH_anova)
@@ -298,7 +302,8 @@ turbidity_shapiro <- turbidity %>%
 
 # Kruskal-Wallis test for differences between locations
 turbidity_kruskal <- kruskal_test(Turbidity ~ MonitoringLocationName, data = turbidity)
-# p = 7.84e-13
+# n   statistic   df  p 
+# 146 55.74798    2   7.84e-13
 
 # Dunn's post hoc test with Bonferroni correction
 turbidity_dunn <- turbidity %>%
@@ -420,7 +425,9 @@ nitrogen_bartlett <- bartlett.test(Nitrogen ~ MonitoringLocationName, data = nit
 # One-way ANOVA test for differences between locations
 nitrogen_anova <- aov(Nitrogen ~ MonitoringLocationName, data = nitrogen)
 summary(nitrogen_anova)
-# p = 0.0165
+#                         Df  Sum Sq  Mean Sq   F value   Pr(>F)  
+# MonitoringLocationName  2   0.0778  0.0389    4.418     0.0165 *
+# Residuals               57  0.5018  0.0088
 
 # Tukey’s HSD post hoc test
 nitrogen_tukey <- TukeyHSD(nitrogen_anova)

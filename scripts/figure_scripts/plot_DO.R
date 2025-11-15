@@ -65,4 +65,4 @@ boxplot <- ggplot(DO_sigletters, aes(x = MonitoringLocationName, y = DO, fill = 
 print(boxplot)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/DO_boxplot.png", plot = boxplot, width = 8, height = 8, dpi = 600)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/DO_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
