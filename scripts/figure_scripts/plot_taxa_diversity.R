@@ -44,6 +44,8 @@ boxplot
 
 # Export diversity boxplot
 ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_boxplot.png", boxplot, width = 8, height = 6, dpi = 800)
+# Export narrow version for multipanel
+ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_boxplot_thin.png", boxplot, width = 6, height = 8, dpi = 800)
 
 # Visualize Shannon Diversity Index between locations over time (THIS IS WHAT SHOULD BE IN THE PAPER!)
 lineplot <- ggplot(shannon_diversity, aes(x = Sampling_date, y = Shannon_Diversity_Index, color = Location, shape = factor(Sampling_date), group = Location)
@@ -71,6 +73,8 @@ lineplot
 
 # Export diversity line plot
 ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_lineplot.png", lineplot, width = 8, height = 6, dpi = 800)
+# Export narrow version for multipanel
+ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_lineplot_thin.png", lineplot, width = 7, height = 8, dpi = 800)
 
 ################################################################################
 # Visualize GAM results for Shannon Diversity Index

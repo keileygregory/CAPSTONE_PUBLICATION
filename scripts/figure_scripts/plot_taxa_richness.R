@@ -48,6 +48,8 @@ boxplot
 
 # Export richness boxplot
 ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/richness_boxplot.png", boxplot, width = 8, height = 6, dpi = 800)
+# Export narrow version for multipanel
+ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/richness_boxplot_thin.png", boxplot, width = 6, height = 8, dpi = 800)
 
 # Visualize Taxon Richness between locations over time (THIS IS WHAT SHOULD BE IN THE PAPER!)
 lineplot <- ggplot(richness, aes(x = Sampling_date, y = Taxon_Richness, color = Location, shape = factor(Sampling_date), group = Location)
@@ -75,6 +77,8 @@ lineplot
 
 # Export richness line plot
 ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/richness_lineplot.png", lineplot, width = 8, height = 6, dpi = 800)
+# Export narrow version for multipanel
+ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/richness_lineplot_thin.png", lineplot, width = 7, height = 8, dpi = 800)
 
 ################################################################################
 # Visualize GAM results for Taxon Richness
