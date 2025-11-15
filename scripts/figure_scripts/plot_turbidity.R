@@ -67,7 +67,7 @@ print(boxplot_outlier)
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_outlier.png", plot = boxplot_outlier, width = 8, height = 6, dpi = 600)
 
 ################################################################################
-# REMOVE OBVIOUS OUTLIER IN BREWERS BAY
+# ⚠️❗️⚠️❗️⚠️❗️⚠️❗️️ REMOVE OBVIOUS OUTLIER IN BREWERS BAY ⚠️❗️⚠️❗️⚠️❗️⚠️❗️
 ################################################################################
 
 # row MonitoringLocationName  MonitoringLocationIdentifier  Latitude  Longitude   DateTime_AST          Turbidity
@@ -76,6 +76,33 @@ ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_outlier.
 # Remove only the one row with clear outlier (turbidty value = 15.30)
 turbidity_sigletters_CLEAN <- turbidity_sigletters_outlier %>%
   filter(!(MonitoringLocationName == "Brewers Bay" & Turbidity == 15.30))
+
+# -------------------------------------------------------------------------------
+# RE-CALCULATE MEAN AND SEM VALUES FOR BRB --------------------------------------
+SEM_function <- function(x, na.rm = TRUE) {
+  n <- sum(!is.na(x))
+  if (n == 0) {return(NA_real_)}
+  sd(x, na.rm = na.rm) / sqrt(n)}
+
+mean_function <- function(x) {
+  if (all(is.na(x))) {NA_real_} 
+  else {mean(x, na.rm = TRUE)}}
+
+numeric_cols <- c("Turbidity")
+
+# Group by location and compute mean and SEM of all variables for each location across all years
+mean_CLEAN <- turbidity_sigletters_CLEAN %>%
+  group_by(MonitoringLocationName) %>%
+  summarise(
+    across(all_of(numeric_cols), mean_function, .names = "mean_{.col}"),
+    across(all_of(numeric_cols), SEM_function, .names = "SEM_{.col}"),
+    .groups = "drop"
+  )
+
+# Save summary table with CLEAN mean and SEM for BRB (other sites unchanged)
+write_csv(mean_CLEAN, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_summarytable_CLEAN.csv")
+
+# -------------------------------------------------------------------------------
 
 # *RECALCULATE summary positions for letters now that outlier has been removed (the numbers in this df are the MAX values for plotting display purposes, NOT the mean)
 letter_positions_CLEAN <- turbidity_sigletters_CLEAN %>%
