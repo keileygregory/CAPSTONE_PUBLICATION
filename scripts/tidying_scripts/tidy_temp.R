@@ -1,5 +1,5 @@
 ################################################################################
-# This script cleans the raw water temperature data collected hourly by submerged temp loggers, including clipping the data by date-time to filter for only times when the temp logger was properly submerged (clipp to 1 day after deployment date (01-22) and 1 day before last sampling date (04-22) = range 01-23 00:00:00 to 04-21 23:59:59 local time).
+# This script cleans the raw water temperature data collected hourly by submerged temp loggers, including clipping the data by date-time to filter for only times when the temp logger was properly submerged (clip to 1 day after deployment date (01-22) and 1 day before last sampling date (04-22) = range 01-23 00:00:00 to 04-21 23:59:59 local time).
 # This is script number 1 (first script) for the water temperature data (1. tidy_temp.R).
 
 # Created by Keiley Gregory on September 16, 2025.
