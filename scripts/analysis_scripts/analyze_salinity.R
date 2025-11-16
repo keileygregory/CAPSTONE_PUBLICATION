@@ -52,7 +52,7 @@ summary_location <- salinity %>%
 write_csv(summary_location, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/salinity_summarytable_location.csv")
 
 ################################################################################
-# WATER TEMPERATURE STATISTICS (GAMM)
+# SALINITY STATISTICS (GAMM)
 ################################################################################
 
 # !!NOTE!!: Using GAMM for salinity (instead of normal GAM) because raw salinity data being used for stat calculations includes *REPLICATES* (6 measurements recorded at same location on same date due to 6 transects at each site). 

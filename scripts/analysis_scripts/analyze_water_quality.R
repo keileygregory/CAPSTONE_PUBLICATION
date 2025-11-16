@@ -359,11 +359,15 @@ TSS_shapiro <- TSS %>%
   shapiro_test(TSS)
 # BRB p < 0.05 = BRB does not have normally distributed data = ANOVA assumption of normality is violated
 
-##### KRUSKAL WALLIS TEST + DUNN'S POST HOC #####
+##### KRUSKAL WALLIS TEST #####
 
 # Kruskal-Wallis test for differences between locations
 TSS_kruskal <- kruskal_test(TSS ~ MonitoringLocationName, data = TSS)
+summary(TSS_kruskal)
 # p = 0.601 = NO sig. difference between locations
+
+# Export TSS data as CSV for box plot
+write_csv(TSS, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/TSS_data.csv")
 
 ################################################################################
 # PHOSPHORUS STATISTICS
@@ -387,11 +391,15 @@ phosphorus_shapiro <- phosphorus %>%
   shapiro_test(Phosphorus)
 # YHG p = 0.04982 (borderline) = ANOVA assumption of normality is still technically violated (even though value is borderline), so use KW test just to be safe
 
-##### KRUSKAL WALLIS TEST + DUNN'S POST HOC #####
+##### KRUSKAL WALLIS TEST #####
 
 # Kruskal-Wallis test for differences between locations
 phosphorus_kruskal <- kruskal_test(Phosphorus ~ MonitoringLocationName, data = phosphorus)
+summary(phosphorus_kruskal)
 # p = 0.449 = NO sig. difference between sites
+
+# Export data as CSV for box plot
+write_csv(phosphorus, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/phosphorus_data.csv")
 
 ################################################################################
 # NITROGEN STATISTICS
@@ -490,8 +498,12 @@ enterococcus_shapiro <- enterococcus %>%
   shapiro_test(Enterococcus)
 # BRB and YHG p-values > 0.05 = BRB and YHG do not have normally distributed data = ANOVA assumption of normality is violated
 
-##### KRUSKAL WALLIS TEST + DUNN'S POST HOC #####
+##### KRUSKAL WALLIS TEST #####
 
 # Kruskal-Wallis test for differences between locations
 enterococcus_kruskal <- kruskal_test(Enterococcus ~ MonitoringLocationName, data = enterococcus)
+summary(enterococcus_kruskal)
 # p = 0.061 = NO sig. difference between locations
+
+# Export data as CSV for box plot
+write_csv(enterococcus, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/enterococcus_data.csv")
