@@ -160,3 +160,4 @@ temp_with_letters <- temp_tidy %>%
 
 # Export as CSV
 write_csv(temp_with_letters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/temp_sigletters.csv.csv")
+

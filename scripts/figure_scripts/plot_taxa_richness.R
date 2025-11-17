@@ -3,7 +3,7 @@
 # This is script number 3B for the biofouling taxon ID data (1. tidy_taxa.R, 2B. analyze_taxa_richness.R, 3B. plot_taxa_richness.R).
 
 # Created by Abigail Lewine on October 28, 2025.
-# Last edited by Keiley Gregory on November 14, 2025.
+# Last edited by Abigail Lewine on November 16, 2025.
 ################################################################################
 
 library(tidyverse)
@@ -28,7 +28,7 @@ boxplot <- ggplot(richness, aes(x = Location, y = Taxon_Richness)) +
   scale_x_discrete(labels = c(
     "BRB" = "Brewers Bay",
     "KRM" = "Krum Bay",
-    "YHG" = "Yacht Haven Grand"
+    "YHG" = "Yacht Haven Grande"
   )) +
   labs(
     y = "Taxon Richness", 
@@ -57,7 +57,7 @@ lineplot <- ggplot(richness, aes(x = Sampling_date, y = Taxon_Richness, color = 
   geom_line(linewidth = 0.5) +
   geom_point(size = 3, alpha = 1) +
   scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"),
-                     labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grand")) +
+                     labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grande")) +
   theme_minimal() +
   labs(
     y = "Taxon Richness",
@@ -101,7 +101,7 @@ smooths$Location <- recode(
   smooths$Location,
   "BRB" = "Brewers Bay",
   "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grand"
+  "YHG" = "Yacht Haven Grande"
 )
 
 # Detailed smooth plot
@@ -122,8 +122,8 @@ GAM_smoothsplot <- ggplot(smooths, aes(
     y = "Taxon Richness"
   ) + 
   scale_x_continuous(breaks = c(15, 30, 45, 60, 75, 90)) +
-  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) + # define line colors
-  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) +  # define ribbon colors (match line colors)
+  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue")) + # define line colors
+  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue")) +  # define ribbon colors (match line colors)
   theme_bw() + 
   theme(
     strip.text = element_text(size = 12, face = "bold"),
@@ -160,3 +160,6 @@ ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/richness_GAMplot.png", GAM_s
 #  scale_color_manual(values = c("Brewers\nBay" = "lightskyblue", "Krum\nBay" = "lightseagreen", "Yacht Haven\nGrand" = "blue")) + # define line colors
 #  scale_fill_manual(values = c("Brewers\nBay" = "lightskyblue", "Krum\nBay" = "lightseagreen", "Yacht Haven\nGrand" = "blue")) +  # define ribbon colors (match line colors)
 #...
+
+
+

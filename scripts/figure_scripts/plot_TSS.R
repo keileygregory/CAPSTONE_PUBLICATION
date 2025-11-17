@@ -11,6 +11,10 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 TSS <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/TSS_data.csv")
 
+#YHG name
+TSS$MonitoringLocationName <-
+  recode(TSS$MonitoringLocationName,
+         "Yacht Haven Grand" = "Yacht Haven Grande")
 ################################################################################
 # SET CUSTOM COLORS
 ################################################################################
@@ -19,7 +23,7 @@ TSS <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insi
 custom_colors <- c(
   "Brewers Bay"       = "lightskyblue",
   "Krum Bay"          = "lightseagreen",
-  "Yacht Haven Grand" = "blue"
+  "Yacht Haven Grande" = "blue"
 )
 
 ################################################################################
@@ -51,3 +55,7 @@ print(boxplot)
 
 # Export plot as PNG
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/TSS_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
+
+
+
+

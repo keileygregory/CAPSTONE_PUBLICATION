@@ -10,6 +10,12 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 nitrogen_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/nitrogen_sigletters.csv")
 
+#YHG name
+nitrogen_sigletters$MonitoringLocationName <-
+  recode(nitrogen_sigletters$MonitoringLocationName,
+         "Yacht Haven Grand" = "Yacht Haven Grande")
+
+
 ################################################################################
 # SET CUSTOM LABELS AND VARIABLES FOR PLOTTING
 ################################################################################
@@ -18,7 +24,7 @@ nitrogen_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drive
 custom_colors <- c(
   "Brewers Bay"       = "lightskyblue",
   "Krum Bay"          = "lightseagreen",
-  "Yacht Haven Grand" = "blue"
+  "Yacht Haven Grande" = "blue"
 )
 
 # Get summary positions for letters (*the numbers in this df are the MAX values for plotting display purposes, NOT the mean)
@@ -44,7 +50,7 @@ boxplot <- ggplot(nitrogen_sigletters, aes(x = MonitoringLocationName, y = Nitro
   geom_text(data = letter_positions, aes(x = MonitoringLocationName, y = Nitrogen + 0.03, label = sig_letter), inherit.aes = FALSE, size = 4, fontface = "bold") +  # position significance letters on plot
   scale_fill_manual(values = custom_colors, guide = "none") +  # use pre-defined custom colors palette
   scale_color_manual(values = custom_colors, guide = "none") +
-  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grand")) +
+  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grande")) +
   labs(
     title = "Distribution of Nitrogen Concentration (mg/L) Across Sampling Locations From August 2022 \nThrough June 2025",
     x = "Sampling Location",
@@ -65,3 +71,5 @@ print(boxplot)
 
 # Export plot as PNG
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/nitrogen_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
+
+

@@ -11,6 +11,11 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 enterococcus <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/enterococcus_data.csv")
 
+#fix the name of YHG
+enterococcus$MonitoringLocationName <-
+  recode(enterococcus$MonitoringLocationName,
+         "Yacht Haven Grand" = "Yacht Haven Grande")
+
 ################################################################################
 # SET CUSTOM COLORS
 ################################################################################
@@ -19,7 +24,7 @@ enterococcus <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_anal
 custom_colors <- c(
   "Brewers Bay"       = "lightskyblue",
   "Krum Bay"          = "lightseagreen",
-  "Yacht Haven Grand" = "blue"
+  "Yacht Haven Grande" = "blue"
 )
 
 ################################################################################

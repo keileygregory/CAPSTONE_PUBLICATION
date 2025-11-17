@@ -37,7 +37,7 @@ boxplot <- ggplot(temp_sigletters, aes(x = Location, y = Temp_C, fill = Location
   geom_text(data = letter_positions, aes(x = Location, y = Temp_C + 0.3, label = sig_letter), inherit.aes = FALSE, size = 4, fontface = "bold") +  # position sig letters on plot
   scale_fill_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") +
   scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") +
-  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grand")) +
+  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grande")) +
   labs(
     title = "Distribution of Water Temperature (°C) Across Sampling Locations From January 23, 2025 Through \nApril 21, 2025",
     y = "Water Temperature (°C)",
@@ -111,7 +111,7 @@ newdat$Location <- recode(
   newdat$Location,
   "BRB" = "Brewers Bay",
   "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grand"
+  "YHG" = "Yacht Haven Grande"
 )
 
 # Detailed smooth plot
@@ -136,8 +136,8 @@ GAM_smoothsplot <- ggplot(newdat, aes(
     x = "Date",
     y = "Water Temperature (°C)"
   ) +
-  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue" )) +
-  scale_fill_manual(values = c( "Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue" )) +
+  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue" )) +
+  scale_fill_manual(values = c( "Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue" )) +
   scale_x_datetime(date_labels = "%b %d", date_breaks = "4 weeks") +
   theme_bw() +
   theme(
@@ -153,3 +153,5 @@ ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot.png", GAM_smo
 
 # Export narrow version
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot_thin.png", GAM_smoothsplot, width = 8, height = 8, dpi = 500)
+
+

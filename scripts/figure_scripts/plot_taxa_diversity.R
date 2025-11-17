@@ -25,7 +25,7 @@ boxplot <- ggplot(shannon_diversity, aes(x = Location, y = Shannon_Diversity_Ind
              alpha = 1, size = 2.5) +  # align points vertically
   scale_fill_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") + # <guide = "none"> removes Location legend
   scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") + # <guide = "none"> removes Location legend
-  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grand")) +
+  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grande")) +
   labs(
     y = "Shannon Diversity Index", 
     x = "Sampling Location",
@@ -53,7 +53,7 @@ lineplot <- ggplot(shannon_diversity, aes(x = Sampling_date, y = Shannon_Diversi
   geom_line(linewidth = 0.5) +
   geom_point(size = 3, alpha = 1) +
   scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"),
-                     labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grand")) +
+                     labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grande")) +
   theme_minimal() +
   labs(
     y = "Shannon Diversity Index",
@@ -97,7 +97,7 @@ smooths$Location <- recode(
   smooths$Location,
   "BRB" = "Brewers Bay",
   "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grand"
+  "YHG" = "Yacht Haven Grande"
 )
 
 # Detailed smooth plot
@@ -118,8 +118,8 @@ GAM_smoothsplot <- ggplot(smooths, aes(
     y = "Shannon Diversity Index"
   ) + 
   scale_x_continuous(breaks = c(15, 30, 45, 60, 75, 90)) +
-  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) + # define line colors
-  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) +  # define ribbon colors (match line colors)
+  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue")) + # define line colors
+  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue")) +  # define ribbon colors (match line colors)
   theme_bw() + 
   theme(
     strip.text = element_text(size = 12, face = "bold"),
@@ -131,3 +131,5 @@ GAM_smoothsplot
 
 # Export detailed GAM smooths plot
 ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_GAMplot.png", GAM_smoothsplot, width = 8, height = 5, dpi = 500)
+
+

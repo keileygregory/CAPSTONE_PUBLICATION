@@ -31,7 +31,7 @@ boxplot <- ggplot(salinity, aes(x = Location, y = Salinity_PPT)) +
   ) +
   scale_fill_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") +
   scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"), guide = "none") +
-  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grand")) +
+  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grande")) +
   labs(
     y = "Salinity (PPT)", 
     x = "Sampling Location",
@@ -59,7 +59,7 @@ lineplot <- ggplot(salinity, aes(x = Date, y = Salinity_PPT, color = Location, s
   geom_line(linewidth = 0.5) +
   geom_point(size = 3, alpha = 1) +
   scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"),
-                     labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grand")) +
+                     labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grande")) +
   theme_minimal() +
   labs(
     y = "Salinity (PPT)",
@@ -102,7 +102,7 @@ smooths$Location <- dplyr::recode(
   smooths$Location,
   "BRB" = "Brewers Bay",
   "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grand"
+  "YHG" = "Yacht Haven Grande"
 )
 
 # Detailed smooth plot
@@ -123,8 +123,8 @@ GAMM_smoothsplot <- ggplot(smooths, aes(
     y = "Salinity (PPT)"
   ) + 
   scale_x_continuous(breaks = c(15, 30, 45, 60, 75, 90)) +
-  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) + # define line colors
-  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grand" = "blue")) +  # define ribbon colors (match line colors)
+  scale_color_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue")) + # define line colors
+  scale_fill_manual(values = c("Brewers Bay" = "lightskyblue", "Krum Bay" = "lightseagreen", "Yacht Haven Grande" = "blue")) +  # define ribbon colors (match line colors)
   theme_bw() + 
   theme(
     strip.text = element_text(size = 11, face = "bold"),
@@ -138,3 +138,4 @@ GAMM_smoothsplot
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_GAMMplot.png", GAMM_smoothsplot, width = 8, height = 5, dpi = 500)
 # Narrow
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_GAMMplot_thin.png", GAMM_smoothsplot, width = 5.25, height = 7.5, dpi = 500)
+

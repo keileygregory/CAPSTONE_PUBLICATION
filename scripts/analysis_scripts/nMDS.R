@@ -124,27 +124,27 @@ shape_values <- c(
 )
 
 # Labels that should appear in the legend for each Day
-date_labels <- c(
-  "15" = "2025-02-06",
-  "30" = "2025-02-21",
-  "45" = "2025-03-08",
-  "60" = "2025-03-23",
-  "75" = "2025-04-06",
-  "90" = "2025-04-22"
-)
+#date_labels <- c(
+ # "15", #= "2025-02-06",
+  #"30" ,#= "2025-02-21",
+  #"45", #= "2025-03-08",
+  #"60", #= "2025-03-23",
+  #"75", #= "2025-04-06",
+  #"90" #= "2025-04-22"
+#)
 
 # Recode site labels and colors for the legend
 site_scores$Site <- recode(
   site_scores$Site,
   "BRB" = "Brewers Bay",
   "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grand"
+  "YHG" = "Yacht Haven Grande"
 )
 
 site_colors <- c(
   "Brewers Bay"       = "lightskyblue",
   "Krum Bay"          = "lightseagreen",
-  "Yacht Haven Grand" = "blue"
+  "Yacht Haven Grande" = "blue"
 )
 
 # Shapes and labels (as you already defined)
@@ -157,14 +157,14 @@ shape_values <- c(
   "90" = 8
 )
 
-date_labels <- c(
-  "15" = "2025-02-06",
-  "30" = "2025-02-21",
-  "45" = "2025-03-08",
-  "60" = "2025-03-23",
-  "75" = "2025-04-06",
-  "90" = "2025-04-22"
-)
+#date_labels <- c(
+  #"15",# = "2025-02-06",
+  #"30" ,#= "2025-02-21",
+  #"45" ,#= "2025-03-08",
+  #"60" ,#= "2025-03-23",
+  #"75" ,#= "2025-04-06",
+  #"90" ,#= "2025-04-22"
+#)
 
 # Padding for ellipses + labels
 x_pad <- 0.3   # bigger padding than before
@@ -203,7 +203,7 @@ nmds_plot <- ggplot() +
   labs(x = "NMDS1", y = "NMDS2") +
   # shapes = sampling dates
   scale_shape_manual(
-    name   = "Sampling Date",
+    name   = "Sampling Day",
     values = c(
       "15" = 16,
       "30" = 17,
@@ -212,16 +212,7 @@ nmds_plot <- ggplot() +
       "75" = 7,
       "90" = 8
     ),
-    breaks = c("15","30","45","60","75","90"),
-    labels = c(
-      "15" = "2025-02-06",
-      "30" = "2025-02-21",
-      "45" = "2025-03-08",
-      "60" = "2025-03-23",
-      "75" = "2025-04-06",
-      "90" = "2025-04-22"
-    )
-  ) +
+  )+
   # colors = locations
   scale_color_manual(
     values = site_colors,
@@ -241,20 +232,20 @@ nmds_plot <- ggplot() +
     axis.text          = element_text(size = 12),
     legend.title       = element_text(size = 10, face = "bold"),
     legend.text        = element_text(size = 9),   # slightly smaller
-    legend.position    = c(0.93, 0.3),
+    legend.position    = c(0.91, 0.32),
     # single outer box around BOTH sections
     legend.box         = "vertical",
     legend.box.background = element_rect(fill = "white", colour = "grey80", linewidth = 0.5),
     # no separate box around each key
     legend.background  = element_blank(),
-    plot.margin        = margin(t = 10, r = 30, b = 10, l = 30)
+    plot.margin        = margin(t = 10, r = 80, b = 10, l = 10)
   )
 
 nmds_plot
 
 # Save the plot
 ggsave("figures/taxa_figures/NMDSplot.png", 
-       plot = nmds_plot, width = 10, height = 6.67, dpi = 800)
+       plot = nmds_plot, width = 12, height = 6.67, dpi = 800)
 # change color to deeppink4 for pink taxa labels
 
 ###############################################################################

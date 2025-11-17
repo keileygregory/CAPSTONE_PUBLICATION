@@ -10,6 +10,10 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 pH_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/pH_sigletters.csv")
 
+#YHG name
+pH_sigletters$MonitoringLocationName <-
+  recode(pH_sigletters$MonitoringLocationName,
+         "Yacht Haven Grand" = "Yacht Haven Grande")
 ################################################################################
 # SET CUSTOM LABELS AND VARIABLES FOR PLOTTING
 ################################################################################
@@ -18,7 +22,7 @@ pH_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_ana
 custom_colors <- c(
   "Brewers Bay"       = "lightskyblue",
   "Krum Bay"          = "lightseagreen",
-  "Yacht Haven Grand" = "blue"
+  "Yacht Haven Grande" = "blue"
 )
 
 # Get summary positions for letters (*the numbers in this df are the MAX values for plotting display purposes, NOT the mean)
@@ -44,7 +48,7 @@ boxplot <- ggplot(pH_sigletters, aes(x = MonitoringLocationName, y = pH, fill = 
   geom_text(data = letter_positions, aes(x = MonitoringLocationName, y = pH + 0.04, label = sig_letter), inherit.aes = FALSE, size = 4, fontface = "bold") +  # position significance letters on plot
   scale_fill_manual(values = custom_colors, guide = "none") +  # use pre-defined custom colors palette
   scale_color_manual(values = custom_colors, guide = "none") +
-  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grand")) +
+  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grande")) +
   labs(
     title = "Distribution of pH Across Sampling Locations From August 2022 Through June 2025",
     x = "Sampling Location",
@@ -65,3 +69,4 @@ print(boxplot)
 
 # Export plot as PNG
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/pH_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
+
