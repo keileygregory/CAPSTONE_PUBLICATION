@@ -1,11 +1,3 @@
-################################################################################
-# This script calculates the Shannon Diversity Index for all tiles analyzed at each location during each sampling event, and uses a Generalized Additive Model (GAM) to determine statistically significant differences between locations and over time at each location.
-# This is script number 2A for the biofouling taxon ID data (1. tidy_taxa.R, 2A. analyze_taxa_diversity.R).
-
-# Created by Abigail Lewine on October 28, 2025.
-# Last edited by Keiley Gregory on November 13, 2025.
-################################################################################
-
 library(tidyverse)
 library(vegan) # for Shannon Diversity Index
 library(mgcv)  # for GAM

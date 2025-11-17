@@ -1,11 +1,3 @@
-################################################################################
-# This script cleans and refines raw water quality data collected by the UVI Environmental Analysis Laboratory (EAL) from 2022-2025.
-# This is script number 1 (first script) for the EAL water quality data (1. tidy_water_quality.R).
-
-# Created by Keiley Gregory on September 16, 2025.
-# Last edited by Keiley Gregory on November 13, 2025.
-################################################################################
-
 library(lubridate)
 library(tidyverse)
 

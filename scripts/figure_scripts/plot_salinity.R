@@ -1,10 +1,3 @@
-################################################################################
-# This script plots salinity data collected during each sampling event. It is the second script for the salinity data (1. analyze_salinity.R, 2. plot_salinity.R).
-
-# Created by Keiley Gregory on November 14, 2025.
-# Last edited by Keiley Gregory on November 14, 2025.
-################################################################################
-
 library(tidyverse)
 library(mgcv)
 library(gratia)

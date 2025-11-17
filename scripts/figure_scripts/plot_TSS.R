@@ -1,11 +1,3 @@
-################################################################################
-# This script plots TSS data collected by the EAL. 
-# This is script number 3 for the EAL TSS data (1. tidy_water_quality.R., 2. analyze_water_quality.R, 3. plot_TSS.R).
-
-# Created by Keiley Gregory on November 14, 2025.
-# Last edited by Keiley Gregory on November 14, 2025.
-################################################################################
-
 library(tidyverse) # includes ggplot2
 
 # Load tidy temp logger data

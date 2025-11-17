@@ -1,11 +1,3 @@
-################################################################################
-# This script analyzes water temperature data collected hourly by temp loggers. A summary table is created containing the calculated mean and standard error of the mean (SEM) of water temperature for each location across all the entire study period. The presence of statistically significant differences in the measured water temperature values is assessed both spatially (between locations) and temporarily (over time at each location) using a Generalized Additive Model (GAM).
-# This is script number 2 for the water temperature data (1. tidy_temp.R, 2. analyze_temp.R).
-
-# Created by Keiley Gregory on September 23, 2025.
-# Last edited by Keiley Gregory on November 13, 2025.
-################################################################################
-
 library(tidyverse)
 library(lubridate)    # for dates/times
 library(mgcv)         # for GAM

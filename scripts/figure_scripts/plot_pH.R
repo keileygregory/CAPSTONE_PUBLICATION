@@ -1,10 +1,3 @@
-################################################################################
-# This script plots pH data collected by the EAL. It is the third script for the EAL pH data (1. tidy_eal_waterquality.R., 2. analyze_eal_waterquality.R, 3. plot_eal_pH.R).
-
-# Created by Keiley Gregory on September 23, 2025.
-# Last edited by Keiley Gregory on September 23, 2025.
-################################################################################
-
 library(tidyverse) # includes ggplot2
 
 # Load tidy temp logger data

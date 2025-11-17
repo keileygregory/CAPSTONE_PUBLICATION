@@ -1,11 +1,3 @@
-################################################################################
-# This script...
-# This is script number 3A for the biofouling taxon ID data (1. tidy_taxa.R, 2A. analyze_taxa_diversity.R, 3A. plot_taxa_diversity.R).
-
-# Created by Abigail Lewine on October 28, 2025.
-# Last edited by Keiley Gregory on November 13, 2025.
-################################################################################
-
 library(tidyverse)
 library(mgcv)
 library(gratia)

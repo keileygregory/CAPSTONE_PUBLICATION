@@ -1,11 +1,3 @@
-################################################################################
-# This script analyzes salinity data collected during each sampling event. Summary tables are created containing the calculated mean and standard error of the mean (SEM) of salinity for each location-sampling event group and for each location across all sampling events. The presence of statistically significant differences in the measured salinity values is assessed both spatially (between locations) and temporarily (over time at each location) using a Generalized Additive Mixed Model (GAMM).
-# This is script number 1 (first script) for the salinity data (1. analyze_salinity.R).
-
-# Created by Keiley Gregory on September 23, 2025.
-# Last edited by Keiley Gregory on November 13, 2025.
-################################################################################
-
 library(tidyverse)
 library(lubridate)    # for dates/times
 library(mgcv)         # for GAM

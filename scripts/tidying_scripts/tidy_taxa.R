@@ -1,11 +1,3 @@
-################################################################################
-# This script cleans and refines raw biofouling taxon ID data collected through manual analysis of 100 points randomly placed on each photo taken of each tile during each sampling date.
-# This is script number 1 (first script) for the biofouling taxon ID data (1. tidy_taxa.R).
-
-# Created by Abigail Lewine on October 28, 2025.
-# Last edited by Keiley Gregory on November 13, 2025.
-################################################################################
-
 library(tidyverse)
 library(janitor)
 library(lubridate)

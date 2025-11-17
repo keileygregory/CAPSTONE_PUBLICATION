@@ -1,13 +1,3 @@
-################################################################################
-# This script analyzes water quality data collected by the UVI EAL from 2022-2025. The chosen markers of water quality from the EAL-collected data are turbidity, pH, total suspended solids (TSS), dissolved oxygen (DO) concentration, Enterococcus (bacteria) concentration, phosphorus concentration, and nitrogen concentration. Summary tables are created containing the calculated mean and standard error of the mean (SEM) for each water quality variable in each location-year group and in each location across all years. Statistically significant differences in the measured values of each water quality variable between locations (all years combined) are determined using various statistical tests depending on the specific characteristics of each variable's data (normality of residuals, homogeneity of variances, etc.)
-# This is script number 2 for the EAL water quality data (1. tidy_water_quality.R., 2. analyze_water_quality.R).
-
-# *NOTE! There was no data collected from 2025-02-04 to 2025-06-18, which is when the capstone sampling period occurred. Therefore, we average all data for entire time frame of EAL data collection spanning 2022-2025.
-
-# Created by Keiley Gregory on September 16, 2025.
-# Last edited by Keiley Gregory on November 13, 2025.
-################################################################################
-
 library(tidyverse)
 library(lubridate)
 library(janitor)

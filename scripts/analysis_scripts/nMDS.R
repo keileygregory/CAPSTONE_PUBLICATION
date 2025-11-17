@@ -1,5 +1,3 @@
-#nMDS and SIMPER
-
 library(tidyverse)
 library(vegan)
 library(knitr)

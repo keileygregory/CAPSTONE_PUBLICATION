@@ -1,10 +1,3 @@
-################################################################################
-# This script plots water temperature data collected hourly by temp loggers. It is the third script for the water temperature data (1. tidy_temp.R, 2. analyze_temp.R, 3. plot_temp.R).
-
-# Created by Keiley Gregory on September 23, 2025.
-# Last edited by Keiley Gregory on November 14, 2025.
-################################################################################
-
 library(tidyverse)
 library(mgcv)
 library(gratia)
