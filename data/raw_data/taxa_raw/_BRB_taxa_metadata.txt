@@ -1,16 +1,16 @@
-File name: site_sampevent_raw.csv
-Title: Raw Sampling Event Data
+File name: 
+Title: 
 
 
 ----------------------------------
 FILE CONTENTS AND INFORMATION
 ----------------------------------
-Description: Data on various aspects of the sampling site and the camera used for tile photography during each sampling event
+Description: 
 
 Authors: MMES 2024 Cohort in partnership with MarineGEO
 
-Date created: 2025-02-06
-Date last modified: 2025-04-27
+Date created: 2025-02-11
+Date last modified: 2025-09-06
 
 Format: CSV
 

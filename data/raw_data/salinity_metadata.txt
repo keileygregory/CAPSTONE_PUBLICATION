@@ -1,0 +1,57 @@
+File name: salinity_raw.csv
+Title: Raw Salinity Data
+
+
+----------------------------------
+FILE CONTENTS AND INFORMATION
+----------------------------------
+Description: Salinity measurements collected for each tile (transect) at each site during every sampling event using an Agtec Portable Refractometer With Copper ATC (0-32 Brix) from Agriculture Solutions
+
+Author(s): MMES 2024 Cohort in partnership with MarineGEO
+
+Date created: 2025-02-11
+Date last modified: 2025-09-06
+
+Format: CSV
+
+
+----------------------------------
+COLUMN DEFINITIONS
+----------------------------------
+
+Column name: Location
+Description: The sampling site (Brewers Bay, Krum Bay, Yacht Haven Grand) where the salinity measurement was collected
+Data type: String
+Units: None
+Valid values: BRB, KRM, YHG
+Missing values: 0 (0.0% of 108 records)
+
+Column name: Date
+Description: The date of the sampling event when the salinity measurement was collected
+Data type: Date
+Units: YYYY-MM-DD
+Valid values: 2025-02-06, 2025-02-21, 2025-03-08, 2025-03-23, 2025-04-06, 2025-04-22
+Missing values: 0 (0.0% of 108 records)
+
+Column name: Transect
+Description: The number of the transect (tile) in each sampling location at which salinity was measured
+Data type: Numeric (integer)
+Units: None
+Valid value range: 1, 2, 3, 4, 5, 6
+Missing values: 0 (0.0% of 108 records)
+
+Column name: Salinity_PPT
+Description: The salinity measurement recorded
+Data type: Numeric (integer)
+Units: Parts per thousand (ppt)
+Valid value range: 21, 22, 23, 24, 25, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39
+Missing values: 0 (0.0% of 108 records)
+
+
+----------------------------------
+METADATA FILE INFORMATION
+----------------------------------
+Date created: 2025-09-06
+Author: Keiley Gregory
+Date last modified: 2025-11-24
+Last modified by: Keiley Gregory
