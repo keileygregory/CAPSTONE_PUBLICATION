@@ -1,0 +1,57 @@
+File name: temp_raw.csv
+Title: Raw Water Temperature Data
+
+
+----------------------------------
+FILE CONTENTS AND INFORMATION
+----------------------------------
+Description: Water temperature measurements collected hourly throughout the entire study period in 0.5 °C increments by submerged 'EnvLogger' automatic temperature loggers (Electric Blue Environmental Tools) at each sampling location.
+
+Authors: MMES 2024 Cohort in partnership with MarineGEO
+
+Date created: 2025-01-22
+Date last modified: 2025-04-23
+
+Format: CSV
+
+
+----------------------------------
+COLUMN DEFINITIONS
+----------------------------------
+
+Column name: Location
+Description: The sampling site (Brewers Bay, Krum Bay, Yacht Haven Grand) where the water temperature measurement was collected
+Data type: String
+Units: None
+Valid values: "BRB", "KRM", "YHG"
+Missing values: 0 (0% of 6512 records)
+
+Column name: Datetime_UTC
+Description: The date and time recorded by the temperature logger (automatically uses time zone UTC) during each water temperature measurement that was taken
+Data type: Date-time (ISO 8601; POSIXct)
+Units: YYYY-MM-DD hh:mm:ss UTC
+Valid values: 4350 distinct values; see dataset for full list
+Missing values: 0 (0% of 6512 records)
+
+Column name: Datetime_local
+Description: The date and time recorded by the temperature logger during each water temperature measurement that was taken converted from UTC to the local time zone for the study (AST)
+Data type: Date-time
+Units: YYYY-MM-DD hh:mm:ss AST
+Valid values: 4350 distinct values; see dataset for full list
+Missing values: 0 (0% of 6512 records)
+
+Column name: Temp_C
+Description: The water temperature measurement values recorded by the EnvLogger temperature logger
+Data type: Numeric (float)
+Units: Degrees Celsius (°C)
+Valid values: 21.0, 21.5, 22.0, 23.0, 23.5, 26.0, 26.5, 27.0, 27.5, 28.0, 28.5, 29.0, 29.5, 31.0, 31.5, 37.5, 39.5, 87.5, NA
+Missing values: 2 (0.03% of 6512 records)
+
+
+----------------------------------
+METADATA FILE INFORMATION
+----------------------------------
+Date created: 2025-09-06
+Authors: Keiley Gregory
+Date last modified: 2025-11-25
+Last modified by: Keiley Gregory

@@ -5,12 +5,12 @@ Title: Raw Sampling Event Data
 ----------------------------------
 FILE CONTENTS AND INFORMATION
 ----------------------------------
-Description: Data on various aspects of the sampling site and the camera used for tile photography during each sampling event
+Description: General information collected during each sampling event on the location, sampling conditions, and photography of tiles to be used in community composition analyses.
 
 Authors: MMES 2024 Cohort in partnership with MarineGEO
 
 Date created: 2025-02-06
-Date last modified: 2025-04-27
+Date last modified: 2025-04-22
 
 Format: CSV
 
@@ -19,28 +19,112 @@ Format: CSV
 COLUMN DEFINITIONS
 ----------------------------------
 
-Column name: 
+Column name: site_code
+Description: 
+Data type: 
+Units: None
+Valid values: "BRB", "KRM", "YHG"
+Missing values: 
+
+Column name: location_name
+Description: 
+Data type: 
+Units: None
+Valid values: "Brewers Bay", "Krum Bay", "Yacht Haven Grand"
+Missing values: 
+
+Column name: transect
+Description: 
+Data type: 
+Units: None
+Valid values: 1, 2, 3, 4, 5, 6
+Missing values: 
+
+Column name: sample_collection_year
+Description: 
+Data type: 
+Units: YYYY
+Valid values: 2025
+Missing values: 
+
+Column name: sample_collection_month
+Description: 
+Data type: 
+Units: MM
+Valid values: 2, 3, 4
+Missing values: 
+
+Column name: sample_collection_day
+Description: 
+Data type: 
+Units: DD
+Valid values: 6, 8, 21, 22, 23
+Missing values: 
+
+Column name: habitat_type
+Description: 
+Data type: 
+Units: None
+Valid values: "dock"
+Missing values: 
+
+Column name: sample_event_personnel
+Description: 
+Data type: 
+Units: None
+Valid values: "AS, HF, SA, TB, LG", "AS, HF, SA, TB, LG, ND", "AS, LG, HF", "AS, ND, LG, HF", "AS, ND, TB, SA, LG", "CC, MG", "CC,GC,MG,DP,MT,AL", "DP, MT", "GC, CC", "HH, KG", "HH, MH, KP, ED", "HH, RL, KP, ED", "HH, volunteer", "KG, RL, KP, MH, ED", "MG, DP", "MG, GC", "ND, LG, SA, TB", "RL, MH, ED"
+Missing values: 
+
+Column name: photo_filename
+Description: 
+Data type: String
+Units: None
+Valid values: "BRB1_Pink_Week10_Day60", "BRB1_Pink_Week12_Day75", "BRB1_Pink_Week14_Day90", "BRB1_Pink_Week4_Day15", "BRB1_Pink_Week6_Day30", "BRB1_Pink_Week8_Day45", "BRB2_Orange_Week10_Day60", "BRB2_Orange_Week12_Day76", "BRB2_Orange_Week14_Day90", "BRB2_Orange_Week4_Day15", "BRB2_Orange_Week6_Day30", "BRB2_Orange_Week8_Day45", "BRB3_Green_Week10_Day60", "BRB3_Green_Week12_Day77", "BRB3_Green_Week14_Day90", "BRB3_Green_Week4_Day15", "BRB3_Green_Week6_Day30", "BRB3_Green_Week8_Day45", "BRB4_Blue_Week12_Day78", "BRB4_Blue_Week14_Day90", "BRB4_Blue_Week4_Day15", "BRB4_Blue_Week6_Day30", "BRB4_Blue_Week8_Day45", "BRB4_Pink_Week10_Day60", "BRB5_Blue_Week10_Day60", "BRB5_Clear_Week12_Day79", "BRB5_Clear_Week14_Day90", "BRB5_Clear_Week4_Day15", "BRB5_Clear_Week6_Day30", "BRB5_Clear_Week8_Day45", "BRB6_Black_Week10_Day60", "BRB6_Black_Week12_Day80", "BRB6_Black_Week14_Day90", "BRB6_Black_Week4_Day15", "BRB6_Black_Week6_Day30", "BRB6_Black_Week8_Day45", "KRM1_Pink_Week10_Day60", "KRM1_Pink_Week12_Day75", "KRM1_Pink_Week4_Day15", "KRM1_Pink_Week6_Day30", "KRM1_Pink_Week8_Day45", "KRM2_Orange_Week10_Day60", "KRM2_Orange_Week12_Day75", "KRM2_Orange_Week14_Day90", "KRM2_Orange_Week4_Day15", "KRM2_Orange_Week6_Day30", "KRM2_Orange_Week8_Day45", "KRM3_Green_Week10_Day60", "KRM3_Green_Week12_Day75", "KRM3_Green_Week14_Day90", "KRM3_Green_Week4_Day15", "KRM3_Green_Week6_Day30", "KRM3_Green_Week8_Day45", "KRM4_Blue_Week10_Day60", "KRM4_Blue_Week12_Day75", "KRM4_Blue_Week14_Day90", "KRM4_Blue_Week4_Day15", "KRM4_Blue_Week6_Day30", "KRM4_Blue_Week8_Day45", "KRM5_Clear_Week10_Day60", "KRM5_Clear_Week12_Day75", "KRM5_Clear_Week14_Day90", "KRM5_Clear_Week4_Day15", "KRM5_Clear_Week6_Day30", "KRM5_Clear_Week8_Day45", "KRM6_Black_Week10_Day60", "KRM6_Black_Week12_Day75", "KRM6_Black_Week14_Day90", "KRM6_Black_Week4_Day15", "KRM6_Black_Week6_Day30", "KRM6_Black_Week8_Day45", "KRM_Pink_Week14_Day90", "YHG1_Pink_Week10_Day60", "YHG1_Pink_Week12_Day75", "YHG1_Pink_Week14_Day90", "YHG1_Pink_Week4_Day15", "YHG1_Pink_Week6_Day30", "YHG1_Pink_Week8_Day45", "YHG2_Orange_Week10_Day60", "YHG2_Orange_Week12_Day75", "YHG2_Orange_Week14_Day90", "YHG2_Orange_Week4_Day15", "YHG2_Orange_Week6_Day30", "YHG2_Orange_Week8_Day45", "YHG3_Green_Week10_Day60", "YHG3_Green_Week12_Day75", "YHG3_Green_Week14_Day90", "YHG3_Green_Week4_Day15", "YHG3_Green_Week6_Day30", "YHG3_Green_Week8_Day45", "YHG4_Blue_Week10_Day60", "YHG4_Blue_Week12_Day75", "YHG4_Blue_Week14_Day90", "YHG4_Blue_Week4_Day15", "YHG4_Blue_Week6_Day30", "YHG4_Blue_Week8_Day45", "YHG5_Clear_Week10_Day60", "YHG5_Clear_Week12_Day75", "YHG5_Clear_Week14_Day90", "YHG5_Clear_Week4_Day15", "YHG5_Clear_Week6_Day30", "YHG5_Clear_Week8_Day45", "YHG6_Black_Week10_Day60", "YHG6_Black_Week12_Day75", "YHG6_Black_Week14_Day90", "YHG6_Black_Week4_Day15", "YHG6_Black_Week6_Day30", "YHG6_Black_Week8_Day45"
+Missing values: 
+
+Column name: photo_direction
+Description: 
+Data type: 
+Units: None
+Valid values: "portrait", "portrain"
+Missing values: 
+
+Column name: camera_used
+Description: 
+Data type: 
+Units: 
+Valid values: "Google Pixel 8a", "Iphone", "Iphone 12 Pro", "Iphone 12 Pro Max", "Iphone 14", "Iphone 15", "Iphone 15 Pro Max", "google pixel 8a", "iphone 12", "iphone 12 pro max", "iphone 14", "iphone 14 pro", "iphone 16 pro  max", "iphone 16 pro max"
+Missing values: 
+
+Column name: photographer
 Description: 
 Data type: 
 Units: 
 Valid values: 
 Missing values: 
 
-Column name: 
+Column name: transect_begin_decimal_latitude
 Description: 
 Data type: 
 Units: 
 Valid values: 
 Missing values: 
 
-Column name: 
+Column name: transect_begin_decimal_longitude
 Description: 
 Data type: 
 Units: 
 Valid values: 
 Missing values: 
 
-Column name: 
+Column name: depth_max_m
+Description: 
+Data type: 
+Units: 
+Valid values: 
+Missing values: 
+
+Column name: sampling_event_notes
 Description: 
 Data type: 
 Units: 
@@ -55,3 +139,42 @@ Date created: 2025-09-06
 Authors: Keiley Gregory
 Date last modified: 2025-11-24
 Last modified by: Keiley Gregory
+
+
+
+
+
+
+
+
+
+==============================
+Column: photographer 
+==============================
+ [1] "HH" "KG" "CC" "MG" "LG" "RL" "MT" "HF" "MH" "GC" "DP" "SA"
+
+==============================
+Column: transect_begin_decimal_latitude 
+==============================
+ [1] 18.34057 18.34055 18.34054 18.34053 18.34052 18.33196 18.33196 18.33195 18.33209 18.33203 18.33198 18.33661
+[13] 18.33662 18.33662 18.33660 18.33663 18.33661
+
+==============================
+Column: transect_begin_decimal_longitude 
+==============================
+ [1] -64.97717 -64.97717 -64.97715 -64.97717 -64.97723 -64.96054 -64.96045 -64.96048 -64.96047 -64.96045
+[11] -64.96047 -64.92129 -64.92128 -64.92124 -64.92129 -64.92135 -64.93135
+
+==============================
+Column: depth_max_m 
+==============================
+ [1] "1.42" "2.04" "2.02" "1.9"  "1.72" "1.85" "2"    "1.4"  "1.27" "2.5"  "3.7"  "1.1"  "2.09" "2.2"  "1.45"
+[16] "1.88" "1.57" "2.06" "1.94" "1.84" "2.12" "1.26" "1.22" "1.95" "2.96" "1.02" "2.26" "N/A"  NA    
+
+==============================
+Column: sampling_event_notes 
+==============================
+[1] "rained during collection"                              
+[2] NA                                                      
+[3] "sailboat being washed during photo and data collection"
+[4] "rained about an hour before data collection"  
