@@ -3,10 +3,15 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 pH_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/pH_sigletters.csv")
 
-#YHG name
-pH_sigletters$MonitoringLocationName <-
-  recode(pH_sigletters$MonitoringLocationName,
-         "Yacht Haven Grand" = "Yacht Haven Grande")
+# Correct YHG name spelling (using case-when)
+pH_sigletters <- pH_sigletters %>%
+  mutate(
+    MonitoringLocationName = case_when(
+      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
+      TRUE ~ MonitoringLocationName
+    )
+  )
+
 ################################################################################
 # SET CUSTOM LABELS AND VARIABLES FOR PLOTTING
 ################################################################################
@@ -61,5 +66,4 @@ boxplot <- ggplot(pH_sigletters, aes(x = MonitoringLocationName, y = pH, fill = 
 print(boxplot)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/pH_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
-
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/pH_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 800)

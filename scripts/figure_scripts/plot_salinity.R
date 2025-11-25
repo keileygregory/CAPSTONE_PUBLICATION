@@ -44,36 +44,38 @@ boxplot
 # Export boxplot
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_boxplot.png", boxplot, width = 10, height = 6, dpi = 800)
 # Wider
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_boxplot_wide.png", boxplot, width = 10, height = 5, dpi = 800)
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_boxplot_wide.png", boxplot, width = 10, height = 5, dpi = 800)
+
+# ------------------------------
 
 # Visualize salinity between locations over time
-lineplot <- ggplot(salinity, aes(x = Date, y = Salinity_PPT, color = Location, shape = factor(Date), group = Location)
-) +
-  geom_line(linewidth = 0.5) +
-  geom_point(size = 3, alpha = 1) +
-  scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"),
-                     labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grande")) +
-  theme_minimal() +
-  labs(
-    y = "Salinity (PPT)",
-    x = "Date",
-    color = "Location",
-    shape = "Sampling Date"
-  ) +
-  theme(
-    legend.position = "right",
-    legend.text = element_text(size = 8),   # smaller legend text
-    legend.title = element_text(size = 10), # slightly smaller title
-    legend.key.size = unit(0.95, "lines"),  # smaller legend key boxes
-    panel.grid.minor = element_blank(),
-    panel.grid.major = element_line(color = "gray90")
-  )
-lineplot
-
-# Export line plot
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_lineplot.png", lineplot, width = 8, height = 6, dpi = 800)
-# Export narrow version for multipanel
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_lineplot_thin.png", lineplot, width = 6.25, height = 7.5, dpi = 800)
+# lineplot <- ggplot(salinity, aes(x = Date, y = Salinity_PPT, color = Location, shape = factor(Date), group = Location)
+# ) +
+#   geom_line(linewidth = 0.5) +
+#   geom_point(size = 3, alpha = 1) +
+#   scale_color_manual(values = c("BRB" = "lightskyblue", "KRM" = "lightseagreen", "YHG" = "blue"),
+#                      labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grande")) +
+#   theme_minimal() +
+#   labs(
+#     y = "Salinity (PPT)",
+#     x = "Date",
+#     color = "Location",
+#     shape = "Sampling Date"
+#   ) +
+#   theme(
+#     legend.position = "right",
+#     legend.text = element_text(size = 8),   # smaller legend text
+#     legend.title = element_text(size = 10), # slightly smaller title
+#     legend.key.size = unit(0.95, "lines"),  # smaller legend key boxes
+#     panel.grid.minor = element_blank(),
+#     panel.grid.major = element_line(color = "gray90")
+#   )
+# lineplot
+# 
+# # Export line plot
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_lineplot.png", lineplot, width = 8, height = 6, dpi = 800)
+# # Export narrow version
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_lineplot_thin.png", lineplot, width = 6.25, height = 7.5, dpi = 800)
 
 ################################################################################
 # Visualize GAM results for Shannon Diversity Index
@@ -128,7 +130,8 @@ GAMM_smoothsplot <- ggplot(smooths, aes(
 GAMM_smoothsplot
 
 # Export detailed GAMM smooths plot
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_GAMMplot.png", GAMM_smoothsplot, width = 8, height = 5, dpi = 500)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_GAMMplot.png", GAMM_smoothsplot, width = 10, height = 6, dpi = 800)
 # Narrow
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_GAMMplot_thin.png", GAMM_smoothsplot, width = 5.25, height = 7.5, dpi = 500)
-
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_GAMMplot_thin.png", GAMM_smoothsplot, width = 5.25, height = 7.5, dpi = 800)
+# Wide
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/salinity_GAMMplot_wide.png", GAMM_smoothsplot, width = 10, height = 5, dpi = 800)

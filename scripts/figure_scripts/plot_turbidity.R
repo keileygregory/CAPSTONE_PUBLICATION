@@ -3,10 +3,14 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 turbidity_sigletters_outlier <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/turbidity_sigletters_outlier.csv")
 
-#YHG name
-turbidity_sigletters_outlier$MonitoringLocationName <-
-  recode(turbidity_sigletters_outlier$MonitoringLocationName,
-         "Yacht Haven Grand" = "Yacht Haven Grande")
+# Correct YHG name spelling (using case-when)
+turbidity_sigletters_outlier <- turbidity_sigletters_outlier %>%
+  mutate(
+    MonitoringLocationName = case_when(
+      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
+      TRUE ~ MonitoringLocationName
+    )
+  )
 ################################################################################
 # SET CUSTOM LABELS AND VARIABLES FOR PLOTTING
 ################################################################################
@@ -38,7 +42,7 @@ boxplot_outlier <- ggplot(turbidity_sigletters_outlier, aes(x = MonitoringLocati
                linewidth = 0.8,  # thickness of whisker lines
                color = "black") +
   geom_point(aes(color = MonitoringLocationName), alpha = 0.5, size = 2.75) +  # align points vertically
-  geom_text(data = letter_positions_outlier, aes(x = MonitoringLocationName, y = Turbidity + 0.07, label = sig_letter), inherit.aes = FALSE, size = 4, fontface = "bold") +  # position significance letters on plot
+  geom_text(data = letter_positions_outlier, aes(x = MonitoringLocationName, y = Turbidity + 1, label = sig_letter), inherit.aes = FALSE, size = 4, fontface = "bold") +  # position significance letters on plot
   scale_fill_manual(values = custom_colors, guide = "none") +  # use pre-defined custom colors palette
   scale_color_manual(values = custom_colors, guide = "none") +
   scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grande")) +
@@ -61,7 +65,7 @@ boxplot_outlier <- ggplot(turbidity_sigletters_outlier, aes(x = MonitoringLocati
 print(boxplot_outlier)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_outlier.png", plot = boxplot_outlier, width = 8, height = 6, dpi = 600)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_outlier.png", plot = boxplot_outlier, width = 8, height = 6, dpi = 800)
 
 ################################################################################
 # ⚠️❗️⚠️❗️⚠️❗️⚠️❗️️ REMOVE OBVIOUS OUTLIER IN BREWERS BAY ⚠️❗️⚠️❗️⚠️❗️⚠️❗️
@@ -183,5 +187,4 @@ boxplot_CLEAN <- ggplot(turbidity_sigletters_CLEAN, aes(x = MonitoringLocationNa
 print(boxplot_CLEAN)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_CLEAN.png", plot = boxplot_CLEAN, width = 8, height = 6, dpi = 600)
-
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_clean.png", plot = boxplot_CLEAN, width = 8, height = 6, dpi = 800)

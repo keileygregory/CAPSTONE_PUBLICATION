@@ -1,16 +1,16 @@
-File name: 
-Title: 
+File name: temp_raw.csv
+Title: Raw Water Temperature Data
 
 
 ----------------------------------
 FILE CONTENTS AND INFORMATION
 ----------------------------------
-Description: 
+Description: Water temperature measurements collected 
 
 Authors: MMES 2024 Cohort in partnership with MarineGEO
 
-Date created: 2025-02-11
-Date last modified: 2025-09-06
+Date created: 2025-01-22
+Date last modified: 2025-04-23
 
 Format: CSV
 

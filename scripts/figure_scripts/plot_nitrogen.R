@@ -3,11 +3,14 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 nitrogen_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/nitrogen_sigletters.csv")
 
-#YHG name
-nitrogen_sigletters$MonitoringLocationName <-
-  recode(nitrogen_sigletters$MonitoringLocationName,
-         "Yacht Haven Grand" = "Yacht Haven Grande")
-
+# Correct YHG name spelling (using case-when)
+nitrogen_sigletters <- nitrogen_sigletters %>%
+  mutate(
+    MonitoringLocationName = case_when(
+      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
+      TRUE ~ MonitoringLocationName
+    )
+  )
 
 ################################################################################
 # SET CUSTOM LABELS AND VARIABLES FOR PLOTTING
@@ -63,6 +66,4 @@ boxplot <- ggplot(nitrogen_sigletters, aes(x = MonitoringLocationName, y = Nitro
 print(boxplot)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/nitrogen_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
-
-
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/nitrogen_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 800)

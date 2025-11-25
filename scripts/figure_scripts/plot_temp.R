@@ -49,12 +49,12 @@ boxplot <- ggplot(temp_sigletters, aes(x = Location, y = Temp_C, fill = Location
   )
 boxplot
 
-# Export diversity boxplot
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot.png", boxplot, width = 8, height = 6, dpi = 600)
-
+# Export temp boxplot
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot.png", boxplot, width = 8, height = 6, dpi = 800)
 # Narrow format
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot_thin.png", boxplot, width = 6, height = 8, dpi = 600)
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot_thinner.png", boxplot, width = 4, height = 8, dpi = 600)
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot_thin.png", boxplot, width = 6, height = 8, dpi = 800)
+# Narrower
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_boxplot_thinner.png", boxplot, width = 4, height = 8, dpi = 800)
 
 ################################################################################
 # Visualize GAM results for water temperature
@@ -97,15 +97,19 @@ newdat <- newdat %>%
     ymin   = fitted - 2 * se,   # approx 95% CI
     ymax   = fitted + 2 * se
   )
+
 #-----------------------------------------------------------------------
 
-# Rename site abbreviations to full names in Location col in smooths dataframe for plotting
-newdat$Location <- recode(
-  newdat$Location,
-  "BRB" = "Brewers Bay",
-  "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grande"
-)
+# Rename site abbreviations to full names in Location col in smooths dataframe for plotting (using case-when)
+newdat <- newdat %>%
+  mutate(
+    Location = case_when(
+      Location == "BRB" ~ "Brewers Bay",
+      Location == "KRM" ~ "Krum Bay",
+      Location == "YHG" ~ "Yacht Haven Grande",
+      TRUE ~ Location
+    )
+  )
 
 # Detailed smooth plot
 GAM_smoothsplot <- ggplot(newdat, aes(
@@ -121,7 +125,7 @@ GAM_smoothsplot <- ggplot(newdat, aes(
   ) +
   geom_line(
     aes(color = Location),
-    size = 0.6,
+    linewidth = 0.6,
     lineend = "round"
   ) +
   facet_wrap(~ Location, ncol = 3, scales = "free_y") +
@@ -142,9 +146,6 @@ GAM_smoothsplot <- ggplot(newdat, aes(
 GAM_smoothsplot
 
 # Export detailed GAM smooths plot
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot.png", GAM_smoothsplot, width = 8, height = 6, dpi = 500)
-
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot.png", GAM_smoothsplot, width = 10, height = 6, dpi = 800)
 # Export narrow version
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot_thin.png", GAM_smoothsplot, width = 8, height = 8, dpi = 500)
-
-
+# ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/temp_GAMplot_thin.png", GAM_smoothsplot, width = 8, height = 8, dpi = 600)

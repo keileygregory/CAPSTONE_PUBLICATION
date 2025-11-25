@@ -35,11 +35,11 @@ boxplot <- ggplot(shannon_diversity, aes(x = Location, y = Shannon_Diversity_Ind
 boxplot
 
 # Export diversity boxplot
-ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_boxplot.png", boxplot, width = 8, height = 6, dpi = 800)
+ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_boxplot.png", boxplot, width = 10, height = 6, dpi = 800)
 # Export narrow version for multipanel
-ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_boxplot_thin.png", boxplot, width = 6, height = 8, dpi = 800)
+# ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_boxplot_thin.png", boxplot, width = 6, height = 8, dpi = 800)
 
-# Visualize Shannon Diversity Index between locations over time (THIS IS WHAT SHOULD BE IN THE PAPER!)
+# Visualize Shannon Diversity Index between locations over time
 lineplot <- ggplot(shannon_diversity, aes(x = Sampling_date, y = Shannon_Diversity_Index, color = Location, shape = factor(Sampling_date), group = Location)
 ) +
   geom_line(linewidth = 0.5) +
@@ -64,9 +64,9 @@ lineplot <- ggplot(shannon_diversity, aes(x = Sampling_date, y = Shannon_Diversi
 lineplot
 
 # Export diversity line plot
-ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_lineplot.png", lineplot, width = 8, height = 6, dpi = 800)
+ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_lineplot.png", lineplot, width = 10, height = 6, dpi = 800)
 # Export narrow version for multipanel
-ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_lineplot_thin.png", lineplot, width = 7, height = 8, dpi = 800)
+# ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_lineplot_thin.png", lineplot, width = 7, height = 8, dpi = 800)
 
 ################################################################################
 # Visualize GAM results for Shannon Diversity Index
@@ -84,13 +84,16 @@ draw(GAM, scales = "free")
 # Get smooth estimates for custom ggplot
 smooths <- smooth_estimates(GAM)
 
-# Rename site abbreviations to full names in Location col in smooths dataframe for plotting
-smooths$Location <- recode(
-  smooths$Location,
-  "BRB" = "Brewers Bay",
-  "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grande"
-)
+# Rename site abbreviations to full names in Location col in smooths dataframe for plotting (using case-when)
+smooths <- smooths %>%
+  mutate(
+    Location = case_when(
+      Location == "BRB" ~ "Brewers Bay",
+      Location == "KRM" ~ "Krum Bay",
+      Location == "YHG" ~ "Yacht Haven Grande",
+      TRUE ~ Location
+    )
+  )
 
 # Detailed smooth plot
 GAM_smoothsplot <- ggplot(smooths, aes(
@@ -122,6 +125,4 @@ GAM_smoothsplot <- ggplot(smooths, aes(
 GAM_smoothsplot
 
 # Export detailed GAM smooths plot
-ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_GAMplot.png", GAM_smoothsplot, width = 8, height = 5, dpi = 500)
-
-
+ggsave("~/CAPSTONE_PUBLICATION/figures/taxa_figures/diversity_GAMplot.png", GAM_smoothsplot, width = 8, height = 4.8, dpi = 800)

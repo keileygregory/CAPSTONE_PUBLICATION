@@ -3,9 +3,14 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 phosphorus <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/phosphorus_data.csv")
 
-phosphorus$MonitoringLocationName <-
-  recode(phosphorus$MonitoringLocationName,
-         "Yacht Haven Grand" = "Yacht Haven Grande")
+# Correct YHG name spelling (using case-when)
+phosphorus <- phosphorus %>%
+  mutate(
+    MonitoringLocationName = case_when(
+      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
+      TRUE ~ MonitoringLocationName
+    )
+  )
 
 ################################################################################
 # SET CUSTOM COLORS
@@ -46,6 +51,4 @@ boxplot <- ggplot(phosphorus, aes(x = MonitoringLocationName, y = Phosphorus, fi
 print(boxplot)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/phosphorus_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
-
-
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/phosphorus_boxplot.png", plot = boxplot, width = 8, height = 5.45, dpi = 800)

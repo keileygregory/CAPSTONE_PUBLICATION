@@ -3,10 +3,14 @@ library(tidyverse) # includes ggplot2
 # Load tidy temp logger data
 enterococcus <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/enterococcus_data.csv")
 
-#fix the name of YHG
-enterococcus$MonitoringLocationName <-
-  recode(enterococcus$MonitoringLocationName,
-         "Yacht Haven Grand" = "Yacht Haven Grande")
+# Correct YHG name spelling (using case-when)
+enterococcus <- enterococcus %>%
+  mutate(
+    MonitoringLocationName = case_when(
+      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
+      TRUE ~ MonitoringLocationName
+    )
+  )
 
 ################################################################################
 # SET CUSTOM COLORS
@@ -47,4 +51,4 @@ boxplot <- ggplot(enterococcus, aes(x = MonitoringLocationName, y = Enterococcus
 print(boxplot)
 
 # Export plot as PNG
-ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/enterococcus_boxplot.png", plot = boxplot, width = 8, height = 6, dpi = 600)
+ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/enterococcus_boxplot.png", plot = boxplot, width = 8, height = 5.45, dpi = 800)
