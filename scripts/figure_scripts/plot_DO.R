@@ -1,16 +1,7 @@
 library(tidyverse) # includes ggplot2
 
 # Load tidy temp logger data
-DO_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/DO_sigletters.csv")
-
-# Correct YHG name spelling (using case-when)
-DO_sigletters <- DO_sigletters %>%
-  mutate(
-    MonitoringLocationName = case_when(
-      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
-      TRUE ~ MonitoringLocationName
-    )
-  )
+DO_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/DO_sigletters.csv")
 
 ################################################################################
 # SET CUSTOM LABELS AND VARIABLES FOR PLOTTING
@@ -46,7 +37,7 @@ boxplot <- ggplot(DO_sigletters, aes(x = MonitoringLocationName, y = DO, fill = 
   geom_text(data = letter_positions, aes(x = MonitoringLocationName, y = DO + 0.2, label = sig_letter), inherit.aes = FALSE, size = 4, fontface = "bold") +  # position significance letters on plot
   scale_fill_manual(values = custom_colors, guide = "none") +  # use pre-defined custom colors palette
   scale_color_manual(values = custom_colors, guide = "none") +
-  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay","YHG" = "Yacht Haven Grande")) +
+  scale_x_discrete(labels = c("BRB" = "Brewers Bay", "KRM" = "Krum Bay", "YHG" = "Yacht Haven Grande")) +
   labs(
     title = "Distribution of Dissolved Oxygen Concentration (mg/L) Across Sampling Locations From August 2022 \nThrough June 2025",
     x = "Sampling Location",

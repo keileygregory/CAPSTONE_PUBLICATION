@@ -1,16 +1,7 @@
 library(tidyverse) # includes ggplot2
 
 # Load tidy temp logger data
-phosphorus <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/phosphorus_data.csv")
-
-# Correct YHG name spelling (using case-when)
-phosphorus <- phosphorus %>%
-  mutate(
-    MonitoringLocationName = case_when(
-      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
-      TRUE ~ MonitoringLocationName
-    )
-  )
+phosphorus <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_plot_data/phosphorus_data.csv")
 
 ################################################################################
 # SET CUSTOM COLORS

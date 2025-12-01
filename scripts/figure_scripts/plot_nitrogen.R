@@ -1,16 +1,7 @@
 library(tidyverse) # includes ggplot2
 
 # Load tidy temp logger data
-nitrogen_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/nitrogen_sigletters.csv")
-
-# Correct YHG name spelling (using case-when)
-nitrogen_sigletters <- nitrogen_sigletters %>%
-  mutate(
-    MonitoringLocationName = case_when(
-      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
-      TRUE ~ MonitoringLocationName
-    )
-  )
+nitrogen_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/nitrogen_sigletters.csv")
 
 ################################################################################
 # SET CUSTOM LABELS AND VARIABLES FOR PLOTTING

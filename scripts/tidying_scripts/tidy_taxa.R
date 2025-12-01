@@ -182,5 +182,3 @@ taxa_renamedreordered <- taxa_renamed %>%
 
 # Export created dataframe as CSV to tidy data folder
 write_csv(taxa_renamedreordered, "~/CAPSTONE_PUBLICATION/data/tidy_data/taxa_tidy.csv")
-
-################################################################################

@@ -25,5 +25,3 @@ temp_clipped <- temp_date %>%
 
 # Save cleaned dataframe as a CSV in project directory
 write_csv(temp_clipped, "~/CAPSTONE_PUBLICATION/data/tidy_data/temp_tidy.csv")
-
-################################################################################

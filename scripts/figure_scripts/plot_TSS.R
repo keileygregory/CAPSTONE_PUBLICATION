@@ -1,16 +1,7 @@
 library(tidyverse) # includes ggplot2
 
 # Load tidy temp logger data
-TSS <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/TSS_data.csv")
-
-# Correct YHG name spelling (using case-when)
-TSS <- TSS %>%
-  mutate(
-    MonitoringLocationName = case_when(
-      MonitoringLocationName == "Yacht Haven Grand" ~ "Yacht Haven Grande",
-      TRUE ~ MonitoringLocationName
-    )
-  )
+TSS <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_plot_data/TSS_data.csv")
 
 ################################################################################
 # SET CUSTOM COLORS

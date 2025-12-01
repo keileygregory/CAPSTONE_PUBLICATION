@@ -1,18 +1,19 @@
-library(tidyverse)
+library(tidyverse) # includes ggplot2
 library(ggrepel)
-library(ggplot2)
 
 # Load saved ordination output files
-site_scores <- read_csv("data/analyzed_data/taxa_analyzed/NMDSsitescores.csv")
-species_subset <- read_csv("data/analyzed_data/taxa_analyzed/NMDSspeciessubsetscores.csv")
+site_scores <- read_csv("data/analyzed_data/taxa_analyzed/nMDSsitescores.csv")
+species_subset <- read_csv("data/analyzed_data/taxa_analyzed/nMDSspeciessubsetscores.csv")
 
 # Update factor levels for site names
-site_scores$Site <- recode(
-  site_scores$Site,
-  "BRB" = "Brewers Bay",
-  "KRM" = "Krum Bay",
-  "YHG" = "Yacht Haven Grande"
-)
+site_scores <- site_scores %>%
+  mutate(Site = dplyr::recode(
+      Site,
+      "BRB" = "Brewers Bay",
+      "KRM" = "Krum Bay",
+      "YHG" = "Yacht Haven Grande"
+    )
+  )
 
 # Assign site colors
 site_colors <- c(
@@ -125,4 +126,4 @@ nmds_plot <- ggplot() +
 nmds_plot
 
 # Save plot (black)
-ggsave("figures/taxa_figures/NMDSplot.png", plot = nmds_plot, width = 11, height = 6.67, dpi = 800)
+ggsave("figures/taxa_figures/nMDS_plot.png", plot = nmds_plot, width = 11, height = 6.67, dpi = 800)

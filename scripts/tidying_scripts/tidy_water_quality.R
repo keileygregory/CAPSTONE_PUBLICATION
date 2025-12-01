@@ -88,8 +88,8 @@ eal_refined <- eal_sorted %>%
   mutate(
     MonitoringLocationName = case_when(
       MonitoringLocationName == "BREWER'S BAY" ~ "Brewers Bay",
-      MonitoringLocationName == "Long Bay, Northeast Corner" ~ "Yacht Haven Grand",
-      MonitoringLocationName == "Long Bay, Off Outfall" ~ "Yacht Haven Grand",
+      MonitoringLocationName == "Long Bay, Northeast Corner" ~ "Yacht Haven Grande",
+      MonitoringLocationName == "Long Bay, Off Outfall" ~ "Yacht Haven Grande",
       TRUE ~ MonitoringLocationName
     )
   ) %>%
@@ -104,5 +104,3 @@ eal_refined <- eal_sorted %>%
 
 # Save cleaned dataframe as a CSV in project directory
 write_csv(eal_refined, "~/CAPSTONE_PUBLICATION/data/tidy_data/water_quality_tidy.csv")
-
-################################################################################

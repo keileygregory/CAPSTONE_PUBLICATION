@@ -61,7 +61,7 @@ nmds_result <- metaMDS(species_data, distance = "euclidean", trymax = 100)
 print(nmds_result$stress) # [1] 0.06984391
 
 # Save stress value (determines if the nMDS solution is reliable)
-writeLines(as.character(nmds_result$stress), "data/analyzed_data/taxa_analyzed/NMDSstressvalue.txt")
+writeLines(as.character(nmds_result$stress), "data/analyzed_data/taxa_analyzed/nMDSstressvalue.txt")
 
 # Extract NMDS coordinates (ordination scores aka transformed site positions in NMDS space)
 site_scores <- as.data.frame(scores(nmds_result, display = "sites"))
@@ -74,9 +74,9 @@ species_scores$distance <- sqrt(species_scores$NMDS1^2 + species_scores$NMDS2^2)
 species_subset <- subset(species_scores, distance > quantile(distance, 0.25))  # top 75%
 
 # Save ordination scores
-write.csv(site_scores, "data/analyzed_data/taxa_analyzed/NMDSsitescores.csv", row.names = TRUE)
-write.csv(species_scores, "data/analyzed_data/taxa_analyzed/NMDSspeciesscores.csv", row.names = TRUE)
-write.csv(species_subset, "data/analyzed_data/taxa_analyzed/NMDSspeciessubsetscores.csv", row.names = TRUE)
+write.csv(site_scores, "data/analyzed_data/taxa_analyzed/nMDSsitescores.csv", row.names = TRUE)
+write.csv(species_scores, "data/analyzed_data/taxa_analyzed/nMDSspeciesscores.csv", row.names = TRUE)
+write.csv(species_subset, "data/analyzed_data/taxa_analyzed/nMDSspeciessubsetscores.csv", row.names = TRUE)
 
 ###############################################################################
 # SIMPER Post Hoc Analysis

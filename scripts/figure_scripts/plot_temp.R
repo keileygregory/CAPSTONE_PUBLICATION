@@ -4,7 +4,7 @@ library(gratia)
 library(patchwork)  # for creating multipanel plots
 
 # Load tidy temp logger data
-temp_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/temp_sigletters.csv")
+temp_sigletters <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/temp_sigletters.csv")
 
 ################################################################################
 # Visualize water temperature data
