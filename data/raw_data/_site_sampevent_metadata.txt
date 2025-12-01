@@ -21,21 +21,21 @@ COLUMN DEFINITIONS
 
 Column name: site_code
 Description: 
-Data type: 
+Data type: String
 Units: None
 Valid values: "BRB", "KRM", "YHG"
 Missing values: 
 
 Column name: location_name
 Description: 
-Data type: 
+Data type: String
 Units: None
-Valid values: "Brewers Bay", "Krum Bay", "Yacht Haven Grand"
+Valid values: "Brewers Bay", "Krum Bay", "Yacht Haven Grande"
 Missing values: 
 
 Column name: transect
 Description: 
-Data type: 
+Data type: Numeric (integer)
 Units: None
 Valid values: 1, 2, 3, 4, 5, 6
 Missing values: 
@@ -63,14 +63,14 @@ Missing values:
 
 Column name: habitat_type
 Description: 
-Data type: 
+Data type: String
 Units: None
 Valid values: "dock"
 Missing values: 
 
 Column name: sample_event_personnel
 Description: 
-Data type: 
+Data type: String
 Units: None
 Valid values: "AS, HF, SA, TB, LG", "AS, HF, SA, TB, LG, ND", "AS, LG, HF", "AS, ND, LG, HF", "AS, ND, TB, SA, LG", "CC, MG", "CC,GC,MG,DP,MT,AL", "DP, MT", "GC, CC", "HH, KG", "HH, MH, KP, ED", "HH, RL, KP, ED", "HH, volunteer", "KG, RL, KP, MH, ED", "MG, DP", "MG, GC", "ND, LG, SA, TB", "RL, MH, ED"
 Missing values: 
@@ -84,43 +84,43 @@ Missing values:
 
 Column name: photo_direction
 Description: 
-Data type: 
+Data type: String
 Units: None
-Valid values: "portrait", "portrain"
+Valid values: "portrait"
 Missing values: 
 
 Column name: camera_used
 Description: 
-Data type: 
-Units: 
+Data type: String
+Units: None
 Valid values: "Google Pixel 8a", "Iphone", "Iphone 12 Pro", "Iphone 12 Pro Max", "Iphone 14", "Iphone 15", "Iphone 15 Pro Max", "google pixel 8a", "iphone 12", "iphone 12 pro max", "iphone 14", "iphone 14 pro", "iphone 16 pro  max", "iphone 16 pro max"
 Missing values: 
 
 Column name: photographer
 Description: 
-Data type: 
-Units: 
+Data type: String
+Units: None
 Valid values: 
 Missing values: 
 
 Column name: transect_begin_decimal_latitude
 Description: 
-Data type: 
-Units: 
+Data type: Numeric (float)
+Units: Decimal degrees (DD)
 Valid values: 
 Missing values: 
 
 Column name: transect_begin_decimal_longitude
 Description: 
-Data type: 
-Units: 
+Data type: Numeric (float)
+Units: Decimal degrees (DD)
 Valid values: 
 Missing values: 
 
 Column name: depth_max_m
 Description: 
 Data type: 
-Units: 
+Units: Meters (m)
 Valid values: 
 Missing values: 
 
@@ -169,7 +169,7 @@ Column: transect_begin_decimal_longitude
 Column: depth_max_m 
 ==============================
  [1] "1.42" "2.04" "2.02" "1.9"  "1.72" "1.85" "2"    "1.4"  "1.27" "2.5"  "3.7"  "1.1"  "2.09" "2.2"  "1.45"
-[16] "1.88" "1.57" "2.06" "1.94" "1.84" "2.12" "1.26" "1.22" "1.95" "2.96" "1.02" "2.26" "N/A"  NA    
+[16] "1.88" "1.57" "2.06" "1.94" "1.84" "2.12" "1.26" "1.22" "1.95" "2.96" "1.02" "2.26" NA    
 
 ==============================
 Column: sampling_event_notes 
