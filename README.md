@@ -11,28 +11,28 @@ Last modified by: $\color{Red}{\text {Keiley Gregory} }$
 <br>
 <br>
 # Contact Information
-Principal Investigator: Kayla Blincow
+**Principal Investigator:** Kayla Blincow
 <br>
 Institution: University of the Virgin Islands
 <br>
 Email: kayla.israel@uvi.edu
 <br>
 <br>
-Principal Investigator: Lincoln Critchley
+**Principal Investigator:** Lincoln Critchley
 <br>
 Institution: University of the Virgin Islands
 <br>
 Email: lincoln.critchley@uvi.edu
 <br>
 <br>
-Author, Data Manager: Keiley Gregory
+**Author, Data Manager:** Keiley Gregory
 <br>
 Institution: University of the Virgin Islands
 <br>
 Email: keiley.gregory@students.uvi.edu
 <br>
 <br>
-Author, Data Manager: Abigail Lewine
+**Author, Data Manager:** Abigail Lewine
 <br>
 Institution: University of the Virgin Islands
 <br>
