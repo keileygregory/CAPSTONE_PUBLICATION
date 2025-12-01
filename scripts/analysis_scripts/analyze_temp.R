@@ -151,5 +151,4 @@ temp_with_letters <- temp_tidy %>%
   left_join(clean_letters, by = "Location")
 
 # Export as CSV
-write_csv(temp_with_letters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/temp_sigletters.csv.csv")
-
+write_csv(temp_with_letters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/temp_sigletters.csv")

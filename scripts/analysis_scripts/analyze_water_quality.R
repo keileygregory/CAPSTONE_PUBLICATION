@@ -13,6 +13,7 @@ print(colnames(eal_tidy))
 print(unique(eal_tidy$MonitoringLocationName))
 
 ################################################################################
+
 # Since we are comparing water quality across sites, we need to make location a factor
 eal_tidy <- eal_tidy %>%
   mutate(MonitoringLocationName = as.factor(MonitoringLocationName))
@@ -44,22 +45,15 @@ eal_numeric <- eal_tidy %>%
 # Define SEM function (return NA if water quality variable has no measured values or only 1 measured value for each individual location-year group)
 SEM_function <- function(x, na.rm = TRUE) {
   n <- sum(!is.na(x))
-  if (n == 0) {
-    return(NA_real_)
-  }
+  if (n == 0) {return(NA_real_)}
   sd(x, na.rm = na.rm) / sqrt(n)
 }
 
 # Define mean function (return NA if water quality variable has no measured values for each individual location-year group - !! this function is necessary instead of just using R's mean calculation to ensure that output dataframe has correct NA value for the mean any variables that had no measurements in a single location-year group, such as mean_Enterococcus in KRM 2025)
 mean_function <- function(x) {
-  if (all(is.na(x))) {
-    NA_real_
-  } else {
-    mean(x, na.rm = TRUE)
-  }
+  if (all(is.na(x))) {NA_real_} 
+  else {mean(x, na.rm = TRUE)}
 }
-################################################################################
-
 
 ################################################################################
 # FIRST GOING TO AVERAGE ALL DATA IN EAL_MASTER CSV BY LOCATION AND YEAR.
@@ -87,14 +81,8 @@ ordered_cols_yr <- c("MonitoringLocationName", "Year") %>%
   append(unlist(map(numeric_cols, ~c(paste0("mean_", .x), paste0("SEM_", .x)))))
 eal_mean_yr_location_ordered <- eal_mean_yr_location[, ordered_cols_yr]
 
-
-################################################################################
-
 # Save summary table as a CSV in project directory
-write_csv(eal_mean_yr_location_ordered, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/water_quality_summarytable_yearlocation.csv")
-
-################################################################################
-
+write_csv(eal_mean_yr_location_ordered, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/water_quality_summarytable_yearlocation_outlierturbidity.csv")
 
 ################################################################################
 # THERE WAS NO DATA COLLECTED FROM 2025-02-04 TO 2025-06-18 (AKA DURING THE CAPSTONE STUDY PERIOD). THEREFORE, NOW GOING TO AVERAGE ALL DATA IN EAL_MASTER CSV BY LOCATION ACROSS ALL YEARS.
@@ -114,19 +102,180 @@ ordered_cols <- c("MonitoringLocationName") %>%
   append(unlist(map(numeric_cols, ~c(paste0("mean_", .x), paste0("SEM_", .x)))))
 eal_mean_location_ordered <- eal_mean_location[, ordered_cols]
 
+# Save summary table as a CSV in project directory
+write_csv(eal_mean_location_ordered, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/water_quality_summarytable_location_outlierturbidity.csv")
+
 ################################################################################
+
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+
+
+################################################################################
+# TURBIDITY STATISTICS
+################################################################################
+
+# Filter for selected columns and only rows with valid turbidity values
+turbidity <- eal_numeric %>%
+  filter(!is.na(Turbidity)) %>%
+  dplyr::select(MonitoringLocationName,
+         MonitoringLocationIdentifier,
+         Latitude,
+         Longitude,
+         DateTime_AST,
+         Turbidity)
+
+##### TEST ANOVA ASSUMPTIONS #####
+
+# Normality of residuals
+turbidity_shapiro <- turbidity %>%
+  group_by(MonitoringLocationName) %>%
+  shapiro_test(Turbidity)
+# all p-values < 0.05 = none of the locations have normally distributed data = ANOVA assumption of normality is violated
+
+##### KRUSKAL WALLIS TEST + DUNN'S POST HOC #####
+
+# Kruskal-Wallis test for differences between locations
+turbidity_kruskal <- kruskal_test(Turbidity ~ MonitoringLocationName, data = turbidity)
+# n   statistic   df  p 
+# 146 55.74798    2   7.84e-13
+
+# Dunn's post hoc test with Bonferroni correction
+turbidity_dunn <- turbidity %>%
+  dunn_test(Turbidity ~ MonitoringLocationName, p.adjust.method = "bonferroni")
+# BRB x YHG p.adj = 2.08e-11; KRM x YHG p.adj = 9.90e-07
+
+# Export Dunn's test results
+write_csv(turbidity_dunn, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_dunnstest_outlier.csv")
+
+##### DUNN'S POST HOC SIGNIFICANCE LETTERS #####
+
+# Convert Dunn’s results to a named vector of p-values
+turbidity_pvals <- turbidity_dunn %>%
+  mutate(comparison = paste(group1, group2, sep = "-")) %>%
+  dplyr::select(comparison, p.adj) %>%
+  deframe()
+
+# Generate compact letters (BRB and KRM "a", YHG "b" = indicates that BRB and KRM are statistically similar to each other, but both are significantly different from YHG)
+turbidity_letters <- multcompLetters(turbidity_pvals)$Letters
+
+# Convert to dataframe for joining
+turbidity_dfletters <- tibble(
+  MonitoringLocationName = names(turbidity_letters),
+  sig_letter = turbidity_letters
+)
+
+# Join significance letters back to the turbidity dataframe
+turbidity_sigletters <- turbidity %>%
+  left_join(turbidity_dfletters, by = "MonitoringLocationName")
+
+# Export full turbidity dataframe WITH sig. letters as CSV for plotting
+write_csv(turbidity_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/turbidity_sigletters_outlier.csv")
+
+# -------------------------------------------------------------------------------
+#️️ REMOVE OBVIOUS OUTLIER IN BREWERS BAY ########################################
+# -------------------------------------------------------------------------------
+
+# row MonitoringLocationName  MonitoringLocationIdentifier  Latitude  Longitude   DateTime_AST          Turbidity
+# 7   Brewers Bay             USVIST_WQX-STT-49             18.34509  -64.97880   2022-09-06 14:12:00   15.30
+
+# Remove only the one row with clear outlier (turbidity value = 15.30) *IMPORTANT: THIS CODE CHANGES CELL WITH OUTLIER TURBIDITY VALUE TO NA INSTEAD OF REMOVING ENTIRE ROW (so does not affect any other variables)!
+eal_numeric_CLEANturbidity <- eal_numeric %>%
+  mutate(
+    Turbidity = if_else(
+      MonitoringLocationName == "Brewers Bay" & Turbidity == 15.30,
+      NA_real_,  # remove ONLY the turbidity outlier value
+      Turbidity  # keep row for all other variables the same (aka do not remove entire row)
+    )
+  )
+
+turbidity_CLEAN <- turbidity %>%
+  filter(!(MonitoringLocationName == "Brewers Bay" & Turbidity == 15.30))
+
+# -------------------------------------------------------------------------------
+# SUMMARY TABLES WITH NEW TURBIDITY MEAN & SEM VALUES ---------------------------
+
+# Group by location and year and compute mean and SEM of all variables for each location during each year
+eal_mean_yr_location_CLEANturbidity <- eal_numeric_CLEANturbidity %>%
+  mutate(Year = lubridate::year(DateTime_AST)) %>%  # add year column for grouping
+  group_by(MonitoringLocationName, Year) %>%
+  summarise(
+    across(all_of(numeric_cols), mean_function, .names = "mean_{.col}"),
+    across(all_of(numeric_cols), SEM_function, .names = "SEM_{.col}"),
+    .groups = "drop"
+  )
+
+# Interleave (mean_X, SEM_X, mean_Y, SEM_Y, etc.) and reorder columns
+eal_mean_yr_location_ordered_CLEANturbidity <- eal_mean_yr_location_CLEANturbidity[, ordered_cols_yr]
 
 # Save summary table as a CSV in project directory
-write_csv(eal_mean_location_ordered, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/water_quality_summarytable_location.csv")
+write_csv(eal_mean_yr_location_ordered_CLEANturbidity, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/water_quality_summarytable_yearlocation.csv")
 
-################################################################################
+# Group by location and compute mean and SEM of all variables for each location across all years
+eal_mean_location_CLEANturbidity <- eal_numeric_CLEANturbidity %>%
+  group_by(MonitoringLocationName) %>%
+  summarise(
+    across(all_of(numeric_cols), mean_function, .names = "mean_{.col}"),
+    across(all_of(numeric_cols), SEM_function, .names = "SEM_{.col}"),
+    .groups = "drop"
+  )
 
+# Interleave (mean_X, SEM_X, mean_Y, SEM_Y, etc.) and reorder columns
+eal_mean_location_ordered_CLEANturbidity <- eal_mean_location_CLEANturbidity[, ordered_cols]
 
-################################################################################
-################################################################################
-################################################################################
-################################################################################
-################################################################################
+# Save summary table as a CSV in project directory
+write_csv(eal_mean_location_ordered_CLEANturbidity, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/water_quality_summarytable_location.csv")
+
+# -------------------------------------------------------------------------------
+# RE-RUN STAT TESTS (MAKE SURE SIG DIFFERENCES SAME) ----------------------------
+
+# Test ANOVA assumptions: Normality of residuals
+turbidity_shapiro_CLEAN <- turbidity_CLEAN %>%
+  group_by(MonitoringLocationName) %>%
+  shapiro_test(Turbidity)
+# all p-values < 0.05 = none of the locations have normally distributed data = ANOVA assumption of normality is violated
+
+# Kruskal-Wallis test for differences between locations
+turbidity_kruskal_CLEAN <- kruskal_test(Turbidity ~ MonitoringLocationName, data = turbidity_CLEAN)
+# n     statistic   df  p
+# 145   59.0051     2   1.54e-13 (was 7.84e-13)
+
+# Dunn's post hoc test with Bonferroni correction
+turbidity_dunn_CLEAN <- turbidity_CLEAN %>%
+  dunn_test(Turbidity ~ MonitoringLocationName, p.adjust.method = "bonferroni")
+# BRB x YHG p.adj = 3.45e-12 (was 2.08e-11); KRM x YHG p.adj = 8.21e-07 (was 9.90e-07)
+
+# Export Dunn's test results
+write_csv(turbidity_dunn_CLEAN, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_dunnstest_clean.csv")
+
+# Convert Dunn’s results to a named vector of p-values
+turbidity_pvals_CLEAN <- turbidity_dunn_CLEAN %>%
+  mutate(comparison = paste(group1, group2, sep = "-")) %>%
+  dplyr::select(comparison, p.adj) %>%
+  deframe()
+
+# Generate compact letters (BRB and KRM "a", YHG "b" = indicates that BRB and KRM are statistically similar to each other, but both are significantly different from YHG)
+turbidity_letters_CLEAN <- multcompLetters(turbidity_pvals_CLEAN)$Letters
+print(turbidity_letters_CLEAN) # sig letters did NOT change with outlier removal
+
+# Convert to dataframe for joining
+turbidity_dfletters_CLEAN <- tibble(
+  MonitoringLocationName = names(turbidity_letters_CLEAN),
+  sig_letter = turbidity_letters_CLEAN
+)
+
+# Join significance letters back to the CLEAN turbidity dataframe
+turbidity_sigletters_CLEAN <- turbidity_CLEAN %>%
+  left_join(turbidity_dfletters_CLEAN, by = "MonitoringLocationName")
+
+# Export full turbidity dataframe EXCLUDING OUTLIER with sig. letters as CSV for plotting
+write_csv(turbidity_sigletters_CLEAN, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/turbidity_sigletters_clean.csv")
+
 
 
 ################################################################################
@@ -136,7 +285,7 @@ write_csv(eal_mean_location_ordered, "~/CAPSTONE_PUBLICATION/data/analyzed_data/
 # Filter for selected columns and only rows with valid DO values
 DO <- eal_numeric %>%
   filter(!is.na(DO)) %>%
-  select(MonitoringLocationName,
+  dplyr::select(MonitoringLocationName,
          MonitoringLocationIdentifier,
          Latitude,
          Longitude,
@@ -172,7 +321,7 @@ write_csv(DO_dunn, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/D
 # Convert Dunn’s results to a named vector of p-values
 DO_pvals <- DO_dunn %>%
   mutate(comparison = paste(group1, group2, sep = "-")) %>%
-  select(comparison, p.adj) %>%
+  dplyr::select(comparison, p.adj) %>%
   deframe()
 
 # Generate vector of compact letters (BRB "a", KRM and YHG "b" = indicates that BRB is significantly different from both KRM and YHG, while KRM and YHG are not significantly different from each other)
@@ -189,7 +338,9 @@ DO_sigletters <- DO %>%
   left_join(DO_dfletters, by = "MonitoringLocationName")
 
 # Export full DO dataframe WITH sig. letters as CSV for plotting
-write_csv(DO_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/DO_sigletters.csv")
+write_csv(DO_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/DO_sigletters.csv")
+
+
 
 ################################################################################
 # PH STATISTICS
@@ -198,7 +349,7 @@ write_csv(DO_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_anal
 # Filter for selected columns and only rows with valid pH values
 pH <- eal_numeric %>%
   filter(!is.na(pH)) %>%
-  select(MonitoringLocationName,
+  dplyr::select(MonitoringLocationName,
          MonitoringLocationIdentifier,
          Latitude,
          Longitude,
@@ -264,68 +415,9 @@ pH_sigletters <- pH %>%
   left_join(pH_dfletters, by = "MonitoringLocationName")
 
 # Export full pH dataframe WITH sig. letters as CSV for plotting
-write_csv(pH_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/pH_sigletters.csv")
+write_csv(pH_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/pH_sigletters.csv")
 
-################################################################################
-# TURBIDITY STATISTICS
-################################################################################
 
-# Filter for selected columns and only rows with valid turbidity values
-turbidity <- eal_numeric %>%
-  filter(!is.na(Turbidity)) %>%
-  select(MonitoringLocationName,
-         MonitoringLocationIdentifier,
-         Latitude,
-         Longitude,
-         DateTime_AST,
-         Turbidity)
-
-##### TEST ANOVA ASSUMPTIONS #####
-
-# Normality of residuals
-turbidity_shapiro <- turbidity %>%
-  group_by(MonitoringLocationName) %>%
-  shapiro_test(Turbidity)
-# all p-values < 0.05 = none of the locations have normally distributed data = ANOVA assumption of normality is violated
-
-##### KRUSKAL WALLIS TEST + DUNN'S POST HOC #####
-
-# Kruskal-Wallis test for differences between locations
-turbidity_kruskal <- kruskal_test(Turbidity ~ MonitoringLocationName, data = turbidity)
-# n   statistic   df  p 
-# 146 55.74798    2   7.84e-13
-
-# Dunn's post hoc test with Bonferroni correction
-turbidity_dunn <- turbidity %>%
-  dunn_test(Turbidity ~ MonitoringLocationName, p.adjust.method = "bonferroni")
-# BRB x YHG p.adj = 2.08e-11; KRM x YHG p.adj = 9.90e-07
-
-# Export Dunn's test results
-write_csv(turbidity_dunn, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_dunnstest_outlier.csv")
-
-##### DUNN'S POST HOC SIGNIFICANCE LETTERS #####
-
-# Convert Dunn’s results to a named vector of p-values
-turbidity_pvals <- turbidity_dunn %>%
-  mutate(comparison = paste(group1, group2, sep = "-")) %>%
-  select(comparison, p.adj) %>%
-  deframe()
-
-# Generate compact letters (BRB and KRM "a", YHG "b" = indicates that BRB and KRM are statistically similar to each other, but both are significantly different from YHG)
-turbidity_letters <- multcompLetters(turbidity_pvals)$Letters
-
-# Convert to dataframe for joining
-turbidity_dfletters <- tibble(
-  MonitoringLocationName = names(turbidity_letters),
-  sig_letter = turbidity_letters
-)
-
-# Join significance letters back to the turbidity dataframe
-turbidity_sigletters <- turbidity %>%
-  left_join(turbidity_dfletters, by = "MonitoringLocationName")
-
-# Export full turbidity dataframe WITH sig. letters as CSV for plotting
-write_csv(turbidity_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/turbidity_sigletters_outlier.csv")
 
 ################################################################################
 # TOTAL SUSPENDED SOLIDS (TSS) STATISTICS
@@ -334,7 +426,7 @@ write_csv(turbidity_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drive
 # Filter for selected columns and only rows with valid TSS values
 TSS <- eal_numeric %>%
   filter(!is.na(TSS)) %>%
-  select(MonitoringLocationName,
+  dplyr::select(MonitoringLocationName,
          MonitoringLocationIdentifier,
          Latitude,
          Longitude,
@@ -357,7 +449,9 @@ summary(TSS_kruskal)
 # p = 0.601 = NO sig. difference between locations
 
 # Export TSS data as CSV for box plot
-write_csv(TSS, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/TSS_data.csv")
+write_csv(TSS, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_plot_data/TSS_data.csv")
+
+
 
 ################################################################################
 # PHOSPHORUS STATISTICS
@@ -366,7 +460,7 @@ write_csv(TSS, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insig
 # Filter for selected columns and only rows with valid phosphorus values
 phosphorus <- eal_numeric %>%
   filter(!is.na(Phosphorus)) %>%
-  select(MonitoringLocationName,
+  dplyr::select(MonitoringLocationName,
          MonitoringLocationIdentifier,
          Latitude,
          Longitude,
@@ -389,7 +483,9 @@ summary(phosphorus_kruskal)
 # p = 0.449 = NO sig. difference between sites
 
 # Export data as CSV for box plot
-write_csv(phosphorus, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/phosphorus_data.csv")
+write_csv(phosphorus, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_plot_data/phosphorus_data.csv")
+
+
 
 ################################################################################
 # NITROGEN STATISTICS
@@ -398,7 +494,7 @@ write_csv(phosphorus, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyze
 # Filter for selected columns and only rows with valid nitrogen values
 nitrogen <- eal_numeric %>%
   filter(!is.na(Nitrogen)) %>%
-  select(MonitoringLocationName,
+  dplyr::select(MonitoringLocationName,
          MonitoringLocationIdentifier,
          Latitude,
          Longitude,
@@ -464,7 +560,9 @@ nitrogen_sigletters <- nitrogen %>%
   left_join(nitrogen_dfletters, by = "MonitoringLocationName")
 
 # Export full nitrogen dataframe WITH sig. letters as CSV for plotting
-write_csv(nitrogen_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/nitrogen_sigletters.csv")
+write_csv(nitrogen_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/nitrogen_sigletters.csv")
+
+
 
 ################################################################################
 # ENTEROCOCCUS STATISTICS
@@ -473,7 +571,7 @@ write_csv(nitrogen_sigletters, "~/CAPSTONE_PUBLICATION/data/analyzed_data/driver
 # Filter for selected columns and only rows with valid Enterococcus values
 enterococcus <- eal_numeric %>%
   filter(!is.na(Enterococcus)) %>%
-  select(MonitoringLocationName,
+  dplyr::select(MonitoringLocationName,
          MonitoringLocationIdentifier,
          Latitude,
          Longitude,
@@ -496,4 +594,4 @@ summary(enterococcus_kruskal)
 # p = 0.061 = NO sig. difference between locations
 
 # Export data as CSV for box plot
-write_csv(enterococcus, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_vars_boxplot_data/enterococcus_data.csv")
+write_csv(enterococcus, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/insignificant_plot_data/enterococcus_data.csv")

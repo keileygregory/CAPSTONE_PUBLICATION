@@ -1,7 +1,7 @@
 library(tidyverse) # includes ggplot2
 
 # Load tidy temp logger data
-turbidity_sigletters_outlier <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/turbidity_sigletters_outlier.csv")
+turbidity_sigletters_outlier <- read_csv("~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters_plot_data/turbidity_sigletters_outlier.csv")
 
 # Correct YHG name spelling (using case-when)
 turbidity_sigletters_outlier <- turbidity_sigletters_outlier %>%
@@ -68,87 +68,7 @@ print(boxplot_outlier)
 ggsave("~/CAPSTONE_PUBLICATION/figures/driver_figures/turbidity_boxplot_outlier.png", plot = boxplot_outlier, width = 8, height = 6, dpi = 800)
 
 ################################################################################
-# ⚠️❗️⚠️❗️⚠️❗️⚠️❗️️ REMOVE OBVIOUS OUTLIER IN BREWERS BAY ⚠️❗️⚠️❗️⚠️❗️⚠️❗️
-################################################################################
 
-# row MonitoringLocationName  MonitoringLocationIdentifier  Latitude  Longitude   DateTime_AST          Turbidity
-# 7   Brewers Bay             USVIST_WQX-STT-49             18.34509  -64.97880   2022-09-06 14:12:00   15.30
-
-# Remove only the one row with clear outlier (turbidty value = 15.30)
-turbidity_sigletters_CLEAN <- turbidity_sigletters_outlier %>%
-  filter(!(MonitoringLocationName == "Brewers Bay" & Turbidity == 15.30))
-
-# -------------------------------------------------------------------------------
-# RE-CALCULATE MEAN AND SEM VALUES FOR BRB --------------------------------------
-SEM_function <- function(x, na.rm = TRUE) {
-  n <- sum(!is.na(x))
-  if (n == 0) {return(NA_real_)}
-  sd(x, na.rm = na.rm) / sqrt(n)}
-
-mean_function <- function(x) {
-  if (all(is.na(x))) {NA_real_} 
-  else {mean(x, na.rm = TRUE)}}
-
-numeric_cols <- c("Turbidity")
-
-# Group by location and compute mean and SEM of all variables for each location across all years
-mean_CLEAN <- turbidity_sigletters_CLEAN %>%
-  group_by(MonitoringLocationName) %>%
-  summarise(
-    across(all_of(numeric_cols), mean_function, .names = "mean_{.col}"),
-    across(all_of(numeric_cols), SEM_function, .names = "SEM_{.col}"),
-    .groups = "drop"
-  )
-
-# Save summary table with CLEAN mean and SEM for BRB (other sites unchanged)
-write_csv(mean_CLEAN, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_summarytable_CLEAN.csv")
-
-# -------------------------------------------------------------------------------
-
-# *RECALCULATE summary positions for letters now that outlier has been removed (the numbers in this df are the MAX values for plotting display purposes, NOT the mean)
-letter_positions_CLEAN <- turbidity_sigletters_CLEAN %>%
-  group_by(MonitoringLocationName) %>%
-  summarise(
-    Turbidity = max(Turbidity, na.rm = TRUE),
-    sig_letter = first(sig_letter)
-  ) %>%
-  ungroup()
-
-# Export full turbidity dataframe EXCLUDING OUTLIER with sig. letters as CSV for plotting
-write_csv(turbidity_sigletters_CLEAN, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/significance_letters/turbidity_sigletters_CLEAN.csv")
-
-# -------------------------------------------------------------------------------
-# RE-RUN STAT TESTS (MAKE SURE SIG DIFFERENCES SAME) ----------------------------
-library(car)           # for Levene's Test
-library(rstatix)       # for various stat tests
-library(multcompView)  # for significance letters
-
-turbidity_shapiro_CLEAN <- turbidity_sigletters_CLEAN %>%
-  group_by(MonitoringLocationName) %>%
-  shapiro_test(Turbidity)
-# all p-values < 0.05 = none of the locations have normally distributed data = ANOVA assumption of normality is violated
-
-turbidity_kruskal_CLEAN <- kruskal_test(Turbidity ~ MonitoringLocationName, data = turbidity_sigletters_CLEAN)
-# p = 1.54e-13 (was 7.84e-13) = still significant
-
-# n     statistic   df  p
-# 145   59.0051     2   1.54e-13
-
-turbidity_dunn_CLEAN <- turbidity_sigletters_CLEAN %>%
-  dunn_test(Turbidity ~ MonitoringLocationName, p.adjust.method = "bonferroni")
-# BRB x YHG p.adj = 3.45e-12 (was 2.08e-11); KRM x YHG p.adj = 8.21e-07 (was 9.90e-07)
-
-# Export Dunn's test results
-write_csv(turbidity_dunn_CLEAN, "~/CAPSTONE_PUBLICATION/data/analyzed_data/drivers_analyzed/turbidity_dunnstest_CLEAN.csv")
-
-turbidity_pvals_CLEAN <- turbidity_dunn_CLEAN %>%
-  mutate(comparison = paste(group1, group2, sep = "-")) %>%
-  select(comparison, p.adj) %>%
-  deframe()
-
-turbidity_letters_CLEAN <- multcompLetters(turbidity_pvals_CLEAN)$Letters
-print(turbidity_letters_CLEAN)
-# *Sig letters remain exact same as before outlier removal (BRB and KRM "a", YHG "b" = indicates that BRB and KRM are statistically similar to each other, but both are significantly different from YHG)
 # -------------------------------------------------------------------------------
 
 ################################################################################
