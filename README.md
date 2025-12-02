@@ -46,7 +46,7 @@ This project was jointly funded by the Smithsonian MarineGEO program and the Uni
 # File Directory
 ## [data](https://github.com/keileygregory/CAPSTONE_PUBLICATION/tree/main/data)
 ### > [analyzed_data](https://github.com/keileygregory/CAPSTONE_PUBLICATION/tree/main/data/analyzed_data)
-### >> [drivers_analyzed](https://github.com/keileygregory/CAPSTONE_PUBLICATION/tree/main/data/analyzed_data/drivers_analyzed)
+### >> *[drivers_analyzed](https://github.com/keileygregory/CAPSTONE_PUBLICATION/tree/main/data/analyzed_data/drivers_analyzed)*
 **DO_dunnstest.csv:** Description...
 <br>
 **nitrogen_tukeyshsdtest.csv:** Description...
