@@ -1,5 +1,5 @@
-File name: 
-Title: 
+File name: *BRB*_taxa_raw.csv
+Title: *Brewers Bay* Raw Biofouling Taxonomic Data
 
 
 ----------------------------------
@@ -19,33 +19,47 @@ Format: CSV
 COLUMN DEFINITIONS
 ----------------------------------
 
-Column name: 
-Description: 
-Data type: 
-Units: 
-Valid values: 
-Missing values: 
+Column name: Tile_Photo
+Description: The name of the PNG file containing the photo of an individual tile taken during each sampling event in *Brewers Bay*. The naming convention is [sampling site abbreviation][transect number]_[color of ziptie used to mark each tile]_[week of sampling event when photo was taken]_[day of sampling event when photo was taken]_pts.
+Data type: String
+Units: None
+*Valid values: "BRB1_Pink_Week4_Day15_pts", "BRB1_Pink_Week6_Day30_pts", "BRB2_Orange_Week12_Day75_pts", "BRB2_Orange_Week14_Day90_pts", "BRB2_Orange_Week4_Day15_pts", "BRB2_Orange_Week6_Day30_pts", "BRB2_Orange_Week8_Day45_pts", "BRB3_Green_Week11_Day60_pts", "BRB3_Green_Week12_Day75_pts", "BRB3_Green_Week14_Day90_pts", "BRB3_Green_Week4_Day15_pts", "BRB3_Green_Week6_Day30_pts", "BRB3_Green_Week8_Day45_pts", "BRB4_Blue_Week11_Day60_pts", "BRB4_Blue_Week12_Day75_pts", "BRB4_Blue_Week14_Day90_pts", "BRB4_Blue_Week4_Day15_pts", "BRB4_Blue_Week6_Day30_pts", "BRB4_Blue_Week8_Day45_pts", "BRB5_Black_Week12_Day75_pts", "BRB5_Clear_Week11_Day60_pts", "BRB5_Clear_Week12_Day75_pts", "BRB5_Clear_Week14_Day90_pts", "BRB5_Clear_Week4_Day15_pts", "BRB5_Clear_Week6_Day30_pts", "BRB5_Clear_Week8_Day45_pts", "BRB6_Black_Week11_Day60_pts", "BRB6_Black_Week14_Day90_pts", "BRB6_Black_Week4_Day15_pts", "BRB6_Black_Week6_Day30_pts", "BRB6_Black_Week8_Day45_pts", "BRB6_Pink_Week12_Day75_pts", "BRB6_Pink_Week14_Day90_pts"
+Missing values: 0 (0% of 3600 records)
 
-Column name: 
-Description: 
-Data type: 
-Units: 
-Valid values: 
-Missing values: 
+Column name: Point
+Description: The number of the point on the tile photo; points were created with a 100-point stratified random grid in R (version 4.5.1).
+Data type: Numeric (integer)
+Units: None
+Valid values: 1-100
+Missing values: 0 (0% of 3600 records)
 
-Column name: 
-Description: 
-Data type: 
-Units: 
-Valid values: 
-Missing values: 
+Column name: ID
+Description: The abbreviation for the name of the taxonomic group identified as being present on the tile in the location of the specific point (from the 100-point stratified random grid). Key to abbreviation codes: *"A_C" = Colonial ascidians, "A_S" = Solitary ascidians, "Amp" = Tube-building amphipods, "B_A" = Arborescent bryozoans, "B_E" = Encrusting bryozoans, "Bn" = Barnacles, "Brown" = Brown algae, "CB" = NO MATCH IN REFERENCE, "Cb" = Cyanobacteria, "CCA" = Crustose coralline, "Couldn't find point" = NO MATCH IN REFERENCE, "Green" = Green algae, "Hyd" = Hydroids, "Micro" = Microalgae, "O_S" = NO MATCH IN REFERENCE, "OS" = Open space, "P_H" = Hard tube-building polychaetes, "P_S" = Soft tube-building polychaetes, "Red" = Red algae, "Sed" = Sediment, "Spg" = Sponge, "Turf" = Turf.*
+Data type: String
+Units: None
+Valid values: "A_C", "A_S", "Amp", "B_A", "B_E", "Bn", "Brown", "CB", "Cb", "CCA", "Couldn't find point", "Green", "Hyd", "Micro", "O_S", "OS", "P_H", "P_S", "Red", "Sed", "Spg", "Turf"
+Missing values: 0 (0% of 3600 records)
 
-Column name: 
-Description: 
-Data type: 
-Units: 
-Valid values: 
-Missing values: 
+Column name: Location_Day
+Description: The three-letter abbreviation of the sampling site name (*"BRB" = Brewers Bay*) and the number of days after tile deployment that the photo was taken.
+Data type: String
+Units: None
+Valid values: "BRB_15", "BRB_30", "BRB_45", "BRB_60", "BRB_75", "BRB_90"
+Missing values: 0 (0% of 3600 records)
+
+Column name: Observer
+Description: The initials (first, middle, and last name) of the person who determined the taxonomic identification of the point on the tile photo.
+Data type: String
+Units: None
+Valid values: "CLG", "DPM", "EJD", "HMH", "NCD", "TB"
+Missing values: 0 (0% of 3600 records)
+
+Column name: Notes
+Description: Miscellaneous notes on individual point on the tile photo.
+Data type: String
+Units: None
+Valid values: "cyanobacteria", "HMH found", "resolved in group meeting", NA
+Missing values: 3554 (98.7% of 3600 records)
 
 
 ----------------------------------
@@ -53,5 +67,5 @@ METADATA FILE INFORMATION
 ----------------------------------
 Date created: 2025-09-06
 Authors: Keiley Gregory
-Date last modified: 2025-11-24
+Date last modified: 2025-12-08
 Last modified by: Keiley Gregory

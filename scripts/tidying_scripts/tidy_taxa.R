@@ -19,12 +19,9 @@ yhg <- read_and_clean("~/CAPSTONE_PUBLICATION/data/raw_data/taxa_raw/YHG_taxa_ra
 
 ################################################################################
 
-# Combine data for all study sites, fix typo in 'tile_p_hoto' column name, and change 'id' column name to 'taxa_id'
+# Combine data for all study sites and change 'id' column name to 'taxa_id'
 taxa_raw <- bind_rows(brb, krm, yhg) %>%
-  rename(
-    tile_photo = tile_p_hoto,
-    taxa_id = id
-    )
+  rename(taxa_id = id)
 
 # Separate 'location_day' column into a location column and a day column (increases simplicity when handling the time component)
 taxa_locationday <- taxa_raw %>%
