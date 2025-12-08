@@ -69,7 +69,7 @@ Valid values: "dock"
 Missing values: 0 (0% of 108 records)
 
 Column name: sample_event_personnel
-Description: The first- and last-name initials of each individual involved the sampling event procedure.
+Description: The initials (first- and last-name) of each individual involved the sampling event procedure.
 Data type: String
 Units: None
 Valid values: "AS, HF, SA, TB, LG", "AS, HF, SA, TB, LG, ND", "AS, LG, HF", "AS, ND, LG, HF", "AS, ND, TB, SA, LG", "CC, MG", "CC,GC,MG,DP,MT,AL", "DP, MT", "GC, CC", "HH, KG", "HH, MH, KP, ED", "HH, RL, KP, ED", "HH, volunteer", "KG, RL, KP, MH, ED", "MG, DP", "MG, GC", "ND, LG, SA, TB", "RL, MH, ED"
@@ -83,53 +83,53 @@ Valid values: "BRB1_Pink_Week10_Day60", "BRB1_Pink_Week12_Day75", "BRB1_Pink_Wee
 Missing values: 0 (0% of 108 records)
 
 Column name: photo_direction
-Description: 
+Description: The orientation (portrait or landscape) that the photo of the tile was taken in.
 Data type: String
 Units: None
 Valid values: "portrait"
-Missing values: 
+Missing values: 0 (0% of 108 records)
 
 Column name: camera_used
-Description: 
+Description: The make and model of the smartphone camera used to take the photo of the tile.
 Data type: String
 Units: None
 Valid values: "Google Pixel 8a", "Iphone", "Iphone 12 Pro", "Iphone 12 Pro Max", "Iphone 14", "Iphone 15", "Iphone 15 Pro Max", "google pixel 8a", "iphone 12", "iphone 12 pro max", "iphone 14", "iphone 14 pro", "iphone 16 pro  max", "iphone 16 pro max"
-Missing values: 
+Missing values: 0 (0% of 108 records)
 
 Column name: photographer
-Description: 
+Description: The initials (first- and last-name) of the person who took the photo of the tile.
 Data type: String
 Units: None
-Valid values: 
-Missing values: 
+Valid values: "CC", "DP", "GC", "HF", "HH", "KG", "LG", "MG", "MH", "MT", "RL", "SA"
+Missing values: 0 (0% of 108 records)
 
 Column name: transect_begin_decimal_latitude
-Description: 
+Description: Latitude coordinate value of the individual tile.
 Data type: Numeric (float)
 Units: Decimal degrees (DD)
-Valid values: 
-Missing values: 
+Valid values: 18.33195, 18.33196, 18.33196, 18.33198, 18.33203, 18.33209, 18.33660, 18.33661, 18.33661, 18.33662, 18.33662, 18.33663, 18.34052, 18.34053, 18.34054, 18.34055, 18.34057
+Missing values: 0 (0% of 108 records)
 
 Column name: transect_begin_decimal_longitude
-Description: 
+Description: Longitude coordinate value of the individual tile.
 Data type: Numeric (float)
 Units: Decimal degrees (DD)
-Valid values: 
-Missing values: 
+Valid values: -64.97723, -64.97717, -64.97717, -64.97717, -64.97715, -64.96054, -64.96048, -64.96047, -64.96047, -64.96045, -64.96045, -64.93135, -64.92135, -64.92129, -64.92129, -64.92128, -64.92124
+Missing values: 0 (0% of 108 records)
 
 Column name: depth_max_m
-Description: 
-Data type: 
+Description: The depth of the tile below the ocean surface. The reason for the word "max" in the column name is due to the tile being located at the very bottom (deepest point) of the contrapion used to suspend the tile underwater to avoid any physical contact between the tile and any other materials, such as the dock or seafloor.
+Data type: Numeric (float)
 Units: Meters (m)
-Valid values: 
-Missing values: 
+Valid values: 1.02, 1.1, 1.22, 1.26, 1.27, 1.4, 1.42, 1.45, 1.57, 1.72, 1.84, 1.85, 1.88, 1.9, 1.94, 1.95, 2, 2.02, 2.04, 2.06, 2.09, 2.12, 2.2, 2.26, 2.5, 2.96, 3.7, NA
+Missing values: 24 (22.2% of 108 records)
 
 Column name: sampling_event_notes
-Description: 
-Data type: 
-Units: 
-Valid values: 
-Missing values: 
+Description: Miscellaneous notes on conditions during sampling event.
+Data type: String
+Units: None
+Valid values: "rained about an hour before data collection", "rained during collection", "sailboat being washed during photo and data collection", NA
+Missing values: 90 (83.3% of 108 records)
 
 
 ----------------------------------
@@ -137,44 +137,5 @@ METADATA FILE INFORMATION
 ----------------------------------
 Date created: 2025-09-06
 Authors: Keiley Gregory
-Date last modified: 2025-11-24
+Date last modified: 2025-12-08
 Last modified by: Keiley Gregory
-
-
-
-
-
-
-
-
-
-==============================
-Column: photographer 
-==============================
- [1] "HH" "KG" "CC" "MG" "LG" "RL" "MT" "HF" "MH" "GC" "DP" "SA"
-
-==============================
-Column: transect_begin_decimal_latitude 
-==============================
- [1] 18.34057 18.34055 18.34054 18.34053 18.34052 18.33196 18.33196 18.33195 18.33209 18.33203 18.33198 18.33661
-[13] 18.33662 18.33662 18.33660 18.33663 18.33661
-
-==============================
-Column: transect_begin_decimal_longitude 
-==============================
- [1] -64.97717 -64.97717 -64.97715 -64.97717 -64.97723 -64.96054 -64.96045 -64.96048 -64.96047 -64.96045
-[11] -64.96047 -64.92129 -64.92128 -64.92124 -64.92129 -64.92135 -64.93135
-
-==============================
-Column: depth_max_m 
-==============================
- [1] "1.42" "2.04" "2.02" "1.9"  "1.72" "1.85" "2"    "1.4"  "1.27" "2.5"  "3.7"  "1.1"  "2.09" "2.2"  "1.45"
-[16] "1.88" "1.57" "2.06" "1.94" "1.84" "2.12" "1.26" "1.22" "1.95" "2.96" "1.02" "2.26" NA    
-
-==============================
-Column: sampling_event_notes 
-==============================
-[1] "rained during collection"                              
-[2] NA                                                      
-[3] "sailboat being washed during photo and data collection"
-[4] "rained about an hour before data collection"  
