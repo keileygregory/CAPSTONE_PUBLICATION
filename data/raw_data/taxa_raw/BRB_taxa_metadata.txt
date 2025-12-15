@@ -69,3 +69,38 @@ Date created: 2025-09-06
 Authors: Keiley Gregory
 Date last modified: 2025-12-08
 Last modified by: Keiley Gregory
+
+
+
+
+
+
+
+
+
+library(tidyverse)
+
+data <- read_csv("~/CAPSTONE_PUBLICATION/data/raw_data/taxa_raw/BRB_taxa_raw.csv")
+
+
+# Unique values in each column
+for (col in names(data)) {
+  cat("\n==============================\n")
+  cat("Column:", col, "\n")
+  cat("==============================\n")
+  print(unique(data[[col]]))
+}
+
+
+
+sum(is.na(data$Tile_Photo))
+
+sum(is.na(data$Point))
+
+sum(is.na(data$ID))
+
+sum(is.na(data$Location_Day))
+
+sum(is.na(data$Observer))
+
+sum(is.na(data$Notes))
