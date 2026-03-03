@@ -1,4 +1,4 @@
-This README file is for the CAPSTONE_PUBLICATION repository (https://github.com/keileygregory/CAPSTONE_PUBLICATION), which contains all R Project files for $\color{Red}{\text {FINAL TITLE} }$.
+This README file is for the CAPSTONE_PUBLICATION repository, which contains all R Project files for $\color{Red}{\text {FINAL TITLE} }$.
 <br>
 <br>
 Date created: 2025-12-1 
