@@ -1,13 +1,13 @@
-This README file is for the CAPSTONE_PUBLICATION repository (https://github.com/keileygregory/CAPSTONE_PUBLICATION), which contains all R Project files for $\color{Red}{\text {Taxon-Level Biofouling Community Succession Based on Environmental Drivers Within the Caribbean name 1 et al., year} }$.
+This README file is for the CAPSTONE_PUBLICATION repository (https://github.com/keileygregory/CAPSTONE_PUBLICATION), which contains all R Project files for $\color{Red}{\text {FINAL TITLE} }$.
 <br>
 <br>
 Date created: 2025-12-1 
 <br>
 Author: Keiley Gregory 
 <br>
-Date last modified: $\color{Red}{\text {2025-12-1} }$
+Date last modified: 2025-12-15
 <br>
-Last modified by: $\color{Red}{\text {Keiley Gregory} }$
+Last modified by: Keiley Gregory
 <br>
 <br>
 # Contact Information
